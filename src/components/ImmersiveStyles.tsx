@@ -11,14 +11,14 @@ const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
     // When prop src changes, add a new layer
     setLayers((prev) => {
       const lastLayer = prev[prev.length - 1];
-      
+
       // If the src hasn't actually changed (e.g. double render), do nothing
       if (lastLayer.src === src) return prev;
 
       const newLayer = { src, id: Date.now() };
       // Keep the visual history clean: [OldImage, NewImage]
       // We keep the old one so the background doesn't flicker black while the new one fades in
-      return [lastLayer, newLayer]; 
+      return [lastLayer, newLayer];
     });
   }, [src]);
 
@@ -38,13 +38,12 @@ const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
         // The new layer (last in array) needs to animate in. 
         // The old layer (first in array) just stays there to provide background.
         const isNew = index === layers.length - 1 && layers.length > 1;
-        
+
         return (
           <div
             key={layer.id}
-            className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-out will-change-transform ${
-              isNew ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
-            }`}
+            className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-out will-change-transform ${isNew ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
+              }`}
             // We use a ref or simple timeout to trigger the 'enter' state
             ref={(el) => {
               if (el && isNew) {
@@ -73,45 +72,60 @@ const ImmersiveStyles: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeStyleIndex, setActiveStyleIndex] = useState(0);
   const [activeSubIndex, setActiveSubIndex] = useState(0); // 0 = Intro, 1-3 = Gallery
-  
+
   // Configuration
   const SUB_SLIDES_PER_STYLE = 4; // 1 Intro + 3 Gallery images
   const TOTAL_SLIDES = TATTOO_STYLES.length * SUB_SLIDES_PER_STYLE;
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateScrollState();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    const updateScrollState = () => {
       if (!containerRef.current) return;
-      
+
       const { top, height } = containerRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      
+
       // The start of the sticky section
-      const start = top; 
-      // How far we have scrolled into the container
-      const scrolled = -start;
-      
-      // Only calculate if we are within the container's active scroll area
-      if (scrolled >= 0 && scrolled <= height - viewportHeight) {
+      const scrolled = -top;
+
+      // Only calculate if we are within the container's active scroll area (with some buffer)
+      if (scrolled >= -viewportHeight && scrolled <= height) {
         const totalScrollableHeight = height - viewportHeight;
-        const scrollProgress = scrolled / totalScrollableHeight;
-        
+
+        // Clamp scroll progress between 0 and 1
+        let scrollProgress = scrolled / totalScrollableHeight;
+        scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+
         const rawSlideIndex = Math.floor(scrollProgress * TOTAL_SLIDES);
         const safeSlideIndex = Math.min(Math.max(rawSlideIndex, 0), TOTAL_SLIDES - 1);
-        
+
         const styleIdx = Math.floor(safeSlideIndex / SUB_SLIDES_PER_STYLE);
         const subIdx = safeSlideIndex % SUB_SLIDES_PER_STYLE;
-        
+
         setActiveStyleIndex(styleIdx);
         setActiveSubIndex(subIdx);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateScrollState(); // Initial check
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [TOTAL_SLIDES]);
 
   const currentStyle = TATTOO_STYLES[activeStyleIndex];
-  
+
   // Helper to get the image to display based on sub-index
   const getCurrentImage = () => {
     if (activeSubIndex === 0) return currentStyle.imageUrl;
@@ -121,19 +135,19 @@ const ImmersiveStyles: React.FC = () => {
   // Function to smoothly scroll to a specific style index
   const scrollToStyle = (index: number) => {
     if (!containerRef.current) return;
-    
+
     const rect = containerRef.current.getBoundingClientRect();
     const scrollTop = window.scrollY;
     // Calculate the absolute top position of the container in the document
-    const containerTop = rect.top + scrollTop; 
-    
+    const containerTop = rect.top + scrollTop;
+
     const height = rect.height;
     const viewportHeight = window.innerHeight;
     const totalScrollableHeight = height - viewportHeight;
-    
+
     // Each style occupies an equal segment of the total scrollable height
     const scrollPerStyle = totalScrollableHeight / TATTOO_STYLES.length;
-    
+
     // Calculate target scroll position (start of the style segment)
     // Adding a small buffer (+5) ensures we land safely inside the index
     const targetScrollY = containerTop + (scrollPerStyle * index) + 5;
@@ -169,7 +183,7 @@ const ImmersiveStyles: React.FC = () => {
       */}
       <div ref={containerRef} className="relative" style={{ height: `${TATTOO_STYLES.length * 300}vh` }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-[var(--bg-secondary)] flex items-center justify-center">
-          
+
           {/* Enhanced Background Image Transition */}
           <CrossfadeBackground src={getCurrentImage()} />
 
@@ -178,34 +192,32 @@ const ImmersiveStyles: React.FC = () => {
              Visible only on Large screens (lg+)
           */}
           <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col gap-6">
-             {TATTOO_STYLES.map((style, idx) => (
-                <button
-                   key={style.id}
-                   onClick={() => scrollToStyle(idx)}
-                   className="group flex items-center gap-4 focus:outline-none"
-                   aria-label={`Ir a estilo ${style.name}`}
+            {TATTOO_STYLES.map((style, idx) => (
+              <button
+                key={style.id}
+                onClick={() => scrollToStyle(idx)}
+                className="group flex items-center gap-4 focus:outline-none"
+                aria-label={`Ir a estilo ${style.name}`}
+              >
+                {/* Indicator Line */}
+                <div
+                  className={`h-[1px] transition-all duration-500 ease-out ${activeStyleIndex === idx
+                      ? 'w-12 bg-red-600'
+                      : 'w-4 bg-[var(--text-secondary)] opacity-40 group-hover:w-8 group-hover:bg-[var(--text-primary)] group-hover:opacity-100'
+                    }`}
+                />
+
+                {/* Label */}
+                <span
+                  className={`text-[9px] uppercase tracking-[0.2em] transition-all duration-500 ${activeStyleIndex === idx
+                      ? 'text-red-600 font-bold translate-x-0 opacity-100'
+                      : 'text-[var(--text-secondary)] -translate-x-2 opacity-50 group-hover:translate-x-0 group-hover:text-[var(--text-primary)] group-hover:opacity-100'
+                    }`}
                 >
-                   {/* Indicator Line */}
-                   <div 
-                     className={`h-[1px] transition-all duration-500 ease-out ${
-                       activeStyleIndex === idx 
-                       ? 'w-12 bg-red-600' 
-                       : 'w-4 bg-[var(--text-secondary)] opacity-40 group-hover:w-8 group-hover:bg-[var(--text-primary)] group-hover:opacity-100'
-                     }`} 
-                   />
-                   
-                   {/* Label */}
-                   <span 
-                     className={`text-[9px] uppercase tracking-[0.2em] transition-all duration-500 ${
-                       activeStyleIndex === idx
-                       ? 'text-red-600 font-bold translate-x-0 opacity-100'
-                       : 'text-[var(--text-secondary)] -translate-x-2 opacity-50 group-hover:translate-x-0 group-hover:text-[var(--text-primary)] group-hover:opacity-100'
-                     }`}
-                   >
-                     {style.name}
-                   </span>
-                </button>
-             ))}
+                  {style.name}
+                </span>
+              </button>
+            ))}
           </div>
 
           {/* 
@@ -213,42 +225,40 @@ const ImmersiveStyles: React.FC = () => {
              Visible on screens smaller than lg (< 1024px)
           */}
           <div className="absolute bottom-6 left-0 w-full z-40 flex lg:hidden justify-between items-end px-4 gap-2 pb-4 bg-gradient-to-t from-black/80 to-transparent">
-             {TATTOO_STYLES.map((style, idx) => {
-               const isActive = activeStyleIndex === idx;
-               return (
+            {TATTOO_STYLES.map((style, idx) => {
+              const isActive = activeStyleIndex === idx;
+              return (
                 <button
-                   key={style.id}
-                   onClick={() => scrollToStyle(idx)}
-                   className="group flex-1 flex flex-col items-center gap-2 focus:outline-none"
-                   aria-label={`Ir a estilo ${style.name}`}
+                  key={style.id}
+                  onClick={() => scrollToStyle(idx)}
+                  className="group flex-1 flex flex-col items-center gap-2 focus:outline-none"
+                  aria-label={`Ir a estilo ${style.name}`}
                 >
-                   {/* Top Indicator Line (Horizontal for mobile) */}
-                   <div 
-                     className={`h-[2px] w-full transition-all duration-500 ease-out ${
-                       isActive 
-                       ? 'bg-red-600 opacity-100' 
-                       : 'bg-[var(--text-secondary)] opacity-20'
-                     }`} 
-                   />
-                   
-                   {/* Label - Always visible but dimmed if inactive */}
-                   <span 
-                     className={`text-[8px] uppercase tracking-widest text-center transition-all duration-500 line-clamp-1 ${
-                       isActive
-                       ? 'text-red-600 font-bold opacity-100'
-                       : 'text-[var(--text-secondary)] opacity-50'
-                     }`}
-                   >
-                     {style.name.split(' ')[0]} {/* Shorten name for mobile (e.g., 'Realismo' instead of 'Realismo Oscuro') */}
-                   </span>
+                  {/* Top Indicator Line (Horizontal for mobile) */}
+                  <div
+                    className={`h-[2px] w-full transition-all duration-500 ease-out ${isActive
+                        ? 'bg-red-600 opacity-100'
+                        : 'bg-[var(--text-secondary)] opacity-20'
+                      }`}
+                  />
+
+                  {/* Label - Always visible but dimmed if inactive */}
+                  <span
+                    className={`text-[8px] uppercase tracking-widest text-center transition-all duration-500 line-clamp-1 ${isActive
+                        ? 'text-red-600 font-bold opacity-100'
+                        : 'text-[var(--text-secondary)] opacity-50'
+                      }`}
+                  >
+                    {style.name.split(' ')[0]} {/* Shorten name for mobile (e.g., 'Realismo' instead of 'Realismo Oscuro') */}
+                  </span>
                 </button>
-               );
-             })}
+              );
+            })}
           </div>
 
           {/* Content Overlay */}
           <div className="relative z-10 p-6 md:p-12 max-w-6xl w-full h-full flex flex-col justify-center">
-            
+
             {/* 
               Content State 0: Intro (Large Title & Description)
               Visible only when subIndex === 0
@@ -286,7 +296,7 @@ const ImmersiveStyles: React.FC = () => {
 
             {/* Progress Bar for current style */}
             <div className="absolute bottom-0 left-0 w-full h-1 bg-[var(--border-color)] z-50">
-              <div 
+              <div
                 className="h-full bg-red-600 transition-all duration-300 ease-out"
                 style={{ width: `${((activeSubIndex + 1) / SUB_SLIDES_PER_STYLE) * 100}%` }}
               />

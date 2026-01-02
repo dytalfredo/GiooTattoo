@@ -1,6 +1,24 @@
 {
     "audio": {
-        "ambient_track": "/assets/ledzeppelin.mp3"
+        "ambient_track": "/assets/ledzeppelin.mp3",
+        "playlist": [
+            {
+                "title": "Led Zeppelin",
+                "url": "/assets/ledzeppelin.mp3"
+            },
+            {
+                "title": "Dark Ambient 1",
+                "url": "/assets/ariana.mp3"
+            },
+            {
+                "title": "La Maquina",
+                "url": "/assets/maquina.mp3"
+            },
+            {
+                "title": "One Love",
+                "url": "/assets/one.mp3"
+            }
+        ]
     },
     "videos": {
         "hero_loop": "/assets/videos/gio_mangaexterna.mp4"
@@ -57,22 +75,22 @@
             "id": "blackwork",
             "name": "BLACKWORK",
             "description": "Contraste profundo, saturación pesada y precisión geométrica. Un estudio en el vacío de obsidiana.",
-            "imageUrl": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=1200&auto=format&fit=crop",
+            "imageUrl": "/assets/images/2.jpg",
             "gallery": [
-                "https://images.unsplash.com/photo-1590246130796-0370d738424d?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1621112904887-419379ce6824?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&w=1200&auto=format&fit=crop"
+                "/assets/images/2.jpg",
+                "/assets/images/1.jpg",
+                "/assets/images/3.jpg"
             ]
         },
         {
             "id": "fine-line",
             "name": "LÍNEA FINA",
             "description": "Precisión delicada. Líneas tan finas como seda de araña, capturando lo efímero.",
-            "imageUrl": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1200&auto=format&fit=crop",
+            "imageUrl": "/assets/images/9.jpg",
             "gallery": [
-                "https://images.unsplash.com/photo-1550537687-c91072c4792d?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1579208030884-694d4d6e8380?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1585120040315-2241b774ad0f?q=80&w=1200&auto=format&fit=crop"
+                "/assets/images/8.jpg",
+                "/assets/images/10.jpg",
+                "/assets/images/7.jpg"
             ]
         },
         {

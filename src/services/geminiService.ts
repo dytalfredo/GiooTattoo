@@ -2,7 +2,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Instancia por defecto (usada para textos si hay env var)
-const defaultAi = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const defaultAi = new GoogleGenAI({ apiKey: import.meta.env.PUBLIC_GEMINI_API_KEY || '' });
 
 export const generateInkInsight = async (idea: string): Promise<string> => {
   try {
@@ -34,11 +34,11 @@ export const generateTattooDesign = async (
 ): Promise<string | null> => {
   try {
     // Si el usuario provee una key, usamos esa instancia. Si no, intentamos usar la variable de entorno.
-    const activeKey = userApiKey || process.env.API_KEY;
-    
+    const activeKey = userApiKey || import.meta.env.PUBLIC_GEMINI_API_KEY;
+
     if (!activeKey) {
-        console.warn("No API Key provided for image generation");
-        return null;
+      console.warn("No API Key provided for image generation");
+      return null;
     }
 
     const ai = new GoogleGenAI({ apiKey: activeKey });

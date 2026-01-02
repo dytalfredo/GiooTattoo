@@ -1,5 +1,5 @@
 
-import { TattooStyle } from './types';
+import type { TattooStyle } from './types';
 
 import media from './data/media.json';
 

@@ -8,6 +8,9 @@ import SmokeEffect from './components/SmokeEffect';
 import LoadingScreen from './components/LoadingScreen';
 import PhilosophyScroll from './components/PhilosophyScroll';
 
+// Inicializar Firebase (Analytics) - REMOVED
+// import './services/firebaseConfig';
+
 import media from './data/media.json';
 
 // Ambient track URL (Royalty free dark ambient texture)
@@ -20,6 +23,9 @@ const App: React.FC = () => {
 
   // Audio State
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showTrackSelector, setShowTrackSelector] = useState(false);
+  // Ensure default track is robust
+  const [currentTrack, setCurrentTrack] = useState(media.audio.playlist && media.audio.playlist.length > 0 ? media.audio.playlist[0] : { title: "Ambient", url: AMBIENT_TRACK_URL });
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Apply theme to document
@@ -33,15 +39,55 @@ const App: React.FC = () => {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(e => {
+          console.log("Audio play failed or was interrupted:", e);
+        });
+      }
     }
   };
+
+  const changeTrack = (track: typeof media.audio.playlist[0]) => {
+    if (!audioRef.current) return;
+
+    // Pause current playback to avoid AbortError/Interruption
+    audioRef.current.pause();
+
+    setCurrentTrack(track);
+    setShowTrackSelector(false); // Close selector after choice
+
+    // Changing state will trigger re-render and src update on the <audio> tag.
+    // We should wait for that update before playing, or handle it via effect.
+    // However, since we are doing manual control, let's just make sure we play if we were playing.
+
+    // Note: The audio tag has src={currentTrack.url}. React will update DOM.
+    // We can auto-play if it was playing, but we need to give React a tick or rely on `autoPlay` attribute logic (which we don't have set dynamically).
+    // A safer way is using a useEffect to watch `currentTrack` changes if we want to auto-continue.
+  };
+
+  // Effect to resume playing after track change if it was playing
+  useEffect(() => {
+    if (audioRef.current && isPlaying) {
+      // Small timeout to ensure DOM has updated src
+      const timer = setTimeout(() => {
+        const playPromise = audioRef.current?.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => console.log("Auto-resume interrupted:", e));
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [currentTrack]); // Only run when track changes
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
   const handleLoaded = () => {
+    // Prevent multiple calls
+    if (!isLoading) return;
+
     setIsLoading(false);
     // Try to auto-play when loading finishes
     if (audioRef.current) {
@@ -83,7 +129,7 @@ const App: React.FC = () => {
       {/* Native Audio Element for better control */}
       <audio
         ref={audioRef}
-        src={AMBIENT_TRACK_URL}
+        src={currentTrack.url}
         loop
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -124,29 +170,58 @@ const App: React.FC = () => {
               )}
             </button>
 
-            {/* Audio Toggle Button */}
-            <button
-              onClick={toggleAudio}
-              className={`p-2 rounded-full border transition-all bg-[var(--bg-secondary)] flex items-center justify-center gap-2 ${isPlaying ? 'border-red-600 text-red-600' : 'border-[var(--border-color)] text-[var(--text-secondary)] hover:border-red-600 hover:text-white'}`}
-              aria-label="Alternar música"
-            >
-              {isPlaying ? (
-                <>
-                  {/* Sound Wave Animation */}
-                  <div className="flex items-end gap-[2px] h-3">
-                    <span className="w-[2px] bg-current h-full animate-[pulse_0.5s_ease-in-out_infinite]"></span>
-                    <span className="w-[2px] bg-current h-2/3 animate-[pulse_0.7s_ease-in-out_infinite]"></span>
-                    <span className="w-[2px] bg-current h-full animate-[pulse_0.6s_ease-in-out_infinite]"></span>
-                  </div>
-                </>
-              ) : (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                  <line x1="23" y1="9" x2="17" y2="15"></line>
-                  <line x1="17" y1="9" x2="23" y2="15"></line>
+            {/* Track Selector & Audio Controls */}
+            <div className="flex items-center gap-2 relative">
+              {/* Selector Trigger */}
+              <button
+                onClick={() => setShowTrackSelector(!showTrackSelector)}
+                className="hidden md:flex items-center gap-2 text-[10px] uppercase tracking-widest text-[var(--text-secondary)] hover:text-red-600 transition-colors"
+              >
+                <span className="max-w-[100px] truncate">{currentTrack?.title || "Ambient"}</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${showTrackSelector ? 'rotate-180' : ''}`}>
+                  <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
+              </button>
+
+              {/* Track Selector Dropdown */}
+              {showTrackSelector && (
+                <div className="absolute top-full right-0 mt-4 w-48 bg-[var(--bg-secondary)] border border-[var(--border-color)] p-2 shadow-xl flex flex-col gap-1 z-[60]">
+                  {media.audio.playlist.map((track, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => changeTrack(track)}
+                      className={`text-left text-[10px] uppercase tracking-widest p-2 hover:bg-[var(--bg-primary)] hover:text-red-600 transition-colors ${currentTrack?.url === track.url ? 'text-red-600' : 'text-[var(--text-secondary)]'}`}
+                    >
+                      {track.title}
+                    </button>
+                  ))}
+                </div>
               )}
-            </button>
+
+              {/* Audio Toggle Button */}
+              <button
+                onClick={toggleAudio}
+                className={`p-2 rounded-full border transition-all bg-[var(--bg-secondary)] flex items-center justify-center gap-2 ${isPlaying ? 'border-red-600 text-red-600' : 'border-[var(--border-color)] text-[var(--text-secondary)] hover:border-red-600 hover:text-white'}`}
+                aria-label="Alternar música"
+              >
+                {isPlaying ? (
+                  <>
+                    {/* Sound Wave Animation */}
+                    <div className="flex items-end gap-[2px] h-3">
+                      <span className="w-[2px] bg-current h-full animate-[pulse_0.5s_ease-in-out_infinite]"></span>
+                      <span className="w-[2px] bg-current h-2/3 animate-[pulse_0.7s_ease-in-out_infinite]"></span>
+                      <span className="w-[2px] bg-current h-full animate-[pulse_0.6s_ease-in-out_infinite]"></span>
+                    </div>
+                  </>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="hidden md:flex gap-8 pointer-events-auto">

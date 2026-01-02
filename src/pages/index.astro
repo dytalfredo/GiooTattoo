@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import App from '../App';
+---
+
+<Layout title="Ink & Shadow | GIO Portafolio">
+	<!-- 
+		Montamos la App de React entera aquí.
+		'client:only="react"' se usa porque la App original depende mucho de 'window' y animaciones
+		que podrían romperse con SSR puro. Sin embargo, para SEO, Astro renderiza el Layout 
+		con los metadatos correctos.
+	-->
+	<App client:only="react" />
+</Layout>

@@ -1,0 +1,35 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const {
+	title,
+	description = "Portafolio de Tatuajes de GIO. Especialista en Blackwork y Realismo Oscuro.",
+} = Astro.props;
+import "../index.css";
+---
+
+<!doctype html>
+<html lang="es" data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<!-- Fuentes Google -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@100;300;400;900&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
