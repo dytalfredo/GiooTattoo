@@ -185,9 +185,9 @@ const ImmersiveStyles: React.FC = () => {
       {/* 
         Sticky Container 
         Height determines how long the user has to scroll. 
-        300vh per style feels substantial.
+        450vh per style gives ~112vh per slide (4 slides), allowing for a smoother, less frantic transition.
       */}
-      <div ref={containerRef} className="relative" style={{ height: `${TATTOO_STYLES.length * 300}vh` }}>
+      <div ref={containerRef} className="relative" style={{ height: `${TATTOO_STYLES.length * 450}vh` }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-[var(--bg-secondary)] flex items-center justify-center">
 
           {/* Enhanced Background Image Transition */}

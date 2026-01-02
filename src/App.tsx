@@ -175,9 +175,9 @@ const App: React.FC = () => {
               {/* Selector Trigger */}
               <button
                 onClick={() => setShowTrackSelector(!showTrackSelector)}
-                className="hidden md:flex items-center gap-2 text-[10px] uppercase tracking-widest text-[var(--text-secondary)] hover:text-red-600 transition-colors"
+                className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[var(--text-secondary)] hover:text-red-600 transition-colors"
               >
-                <span className="max-w-[100px] truncate">{currentTrack?.title || "Ambient"}</span>
+                <span className="max-w-[80px] md:max-w-[100px] truncate">{currentTrack?.title || "Ambient"}</span>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${showTrackSelector ? 'rotate-180' : ''}`}>
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -238,7 +238,7 @@ const App: React.FC = () => {
           <div className="pointer-events-auto">
             <button
               onClick={scrollToContact}
-              className="bg-[var(--text-primary)] text-[var(--bg-primary)] px-6 py-2 text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-red-600 hover:text-white transition-all"
+              className="bg-[var(--text-primary)] text-[var(--bg-primary)] px-3 py-1 md:px-6 md:py-2 text-[8px] md:text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-red-600 hover:text-white transition-all"
             >
               Reservar
             </button>
