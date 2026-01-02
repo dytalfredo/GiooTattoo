@@ -77,6 +77,8 @@ const ImmersiveStyles: React.FC = () => {
   const SUB_SLIDES_PER_STYLE = 4; // 1 Intro + 3 Gallery images
   const TOTAL_SLIDES = TATTOO_STYLES.length * SUB_SLIDES_PER_STYLE;
 
+  const lastIndices = useRef({ style: 0, sub: 0 });
+
   useEffect(() => {
     let ticking = false;
 
@@ -113,8 +115,12 @@ const ImmersiveStyles: React.FC = () => {
         const styleIdx = Math.floor(safeSlideIndex / SUB_SLIDES_PER_STYLE);
         const subIdx = safeSlideIndex % SUB_SLIDES_PER_STYLE;
 
-        setActiveStyleIndex(styleIdx);
-        setActiveSubIndex(subIdx);
+        // Only update if changed to prevent render thrashing
+        if (lastIndices.current.style !== styleIdx || lastIndices.current.sub !== subIdx) {
+          lastIndices.current = { style: styleIdx, sub: subIdx };
+          setActiveStyleIndex(styleIdx);
+          setActiveSubIndex(subIdx);
+        }
       }
     };
 
@@ -202,16 +208,16 @@ const ImmersiveStyles: React.FC = () => {
                 {/* Indicator Line */}
                 <div
                   className={`h-[1px] transition-all duration-500 ease-out ${activeStyleIndex === idx
-                      ? 'w-12 bg-red-600'
-                      : 'w-4 bg-[var(--text-secondary)] opacity-40 group-hover:w-8 group-hover:bg-[var(--text-primary)] group-hover:opacity-100'
+                    ? 'w-12 bg-red-600'
+                    : 'w-4 bg-[var(--text-secondary)] opacity-40 group-hover:w-8 group-hover:bg-[var(--text-primary)] group-hover:opacity-100'
                     }`}
                 />
 
                 {/* Label */}
                 <span
                   className={`text-[9px] uppercase tracking-[0.2em] transition-all duration-500 ${activeStyleIndex === idx
-                      ? 'text-red-600 font-bold translate-x-0 opacity-100'
-                      : 'text-[var(--text-secondary)] -translate-x-2 opacity-50 group-hover:translate-x-0 group-hover:text-[var(--text-primary)] group-hover:opacity-100'
+                    ? 'text-red-600 font-bold translate-x-0 opacity-100'
+                    : 'text-[var(--text-secondary)] -translate-x-2 opacity-50 group-hover:translate-x-0 group-hover:text-[var(--text-primary)] group-hover:opacity-100'
                     }`}
                 >
                   {style.name}
@@ -237,16 +243,16 @@ const ImmersiveStyles: React.FC = () => {
                   {/* Top Indicator Line (Horizontal for mobile) */}
                   <div
                     className={`h-[2px] w-full transition-all duration-500 ease-out ${isActive
-                        ? 'bg-red-600 opacity-100'
-                        : 'bg-[var(--text-secondary)] opacity-20'
+                      ? 'bg-red-600 opacity-100'
+                      : 'bg-[var(--text-secondary)] opacity-20'
                       }`}
                   />
 
                   {/* Label - Always visible but dimmed if inactive */}
                   <span
                     className={`text-[8px] uppercase tracking-widest text-center transition-all duration-500 line-clamp-1 ${isActive
-                        ? 'text-red-600 font-bold opacity-100'
-                        : 'text-[var(--text-secondary)] opacity-50'
+                      ? 'text-red-600 font-bold opacity-100'
+                      : 'text-[var(--text-secondary)] opacity-50'
                       }`}
                   >
                     {style.name.split(' ')[0]} {/* Shorten name for mobile (e.g., 'Realismo' instead of 'Realismo Oscuro') */}
