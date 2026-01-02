@@ -1,0 +1,203 @@
+/* Base styles */
+
+:root {
+    --bg-primary: #000000;
+    --bg-secondary: #09090b;
+    /* zinc-950 */
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    /* zinc-400 */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --overlay-gradient-start: rgba(0, 0, 0, 0.9);
+    --overlay-gradient-mid: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f4f4f5;
+    /* zinc-100 */
+    --text-primary: #09090b;
+    /* zinc-950 */
+    --text-secondary: #52525b;
+    /* zinc-600 */
+    --border-color: rgba(0, 0, 0, 0.1);
+    --overlay-gradient-start: rgba(255, 255, 255, 0.9);
+    --overlay-gradient-mid: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.font-syncopate {
+    font-family: 'Syncopate', sans-serif;
+}
+
+.custom-glow-red {
+    box-shadow: 0 0 50px 10px rgba(220, 38, 38, 0.15);
+}
+
+.custom-glow-white {
+    box-shadow: 0 0 40px 5px rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #dc2626;
+}
+
+@keyframes pulse-slow {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* DARK MODE: Animación para la "I" parpadeante (Foco roto) */
+@keyframes glitch-light {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    2% {
+        opacity: 0.4;
+        text-shadow: none;
+    }
+
+    4% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    15% {
+        opacity: 1;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.5);
+    }
+
+    16% {
+        opacity: 0.1;
+        text-shadow: none;
+    }
+
+    17% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    42% {
+        opacity: 0.8;
+        transform: scale(0.99);
+    }
+
+    44% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    82% {
+        opacity: 0.5;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+    84% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.animate-glitch-light {
+    animation: glitch-light 4s infinite steps(1);
+}
+
+/* Animación compañera para el brillo volumétrico en Dark Mode */
+@keyframes ambient-glow-pulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    16% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    17% {
+        opacity: 0.4;
+        transform: scale(1.1);
+    }
+
+    82% {
+        opacity: 0.1;
+    }
+
+    84% {
+        opacity: 0.3;
+    }
+}
+
+.animate-ambient-glow {
+    animation: ambient-glow-pulse 4s infinite steps(1);
+}
+
+/* LIGHT MODE: Secuencia de Flash Rojo */
+@keyframes red-flash {
+
+    0%,
+    70%,
+    100% {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+
+    10%,
+    30% {
+        color: #dc2626;
+        text-shadow: 0 0 15px rgba(220, 38, 38, 0.4), 0 0 30px rgba(220, 38, 38, 0.2);
+    }
+}
+
+.animate-red-flash {
+    animation: red-flash 3s infinite ease-out;
+    /* Duración larga para que se note la pausa entre ciclos */
+}
