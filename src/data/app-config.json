@@ -10,7 +10,7 @@
         "social": {
             "instagram": "https://www.instagram.com/giootattoo",
             "email": "giordanojppart@gmail.com",
-            "whatsapp": "https://wa.me/0051934021923"
+            "whatsapp": "https://wa.me/+51934021923"
         }
     },
     "navigation": {
@@ -60,7 +60,7 @@
         "scrollMessage": "Desliza hacia la tinta"
     },
     "gallery": {
-        "label": "Moodboard",
+        "label": "Galería",
         "title": "ARCHIVO VISUAL",
         "loadMore": "+ CARGAR MÁS RECUERDOS"
     },
@@ -154,48 +154,48 @@
         },
         "gallery_grid": [
             {
-                "url": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=800&auto=format&fit=crop",
+                "url": "/assets/images/GeometricBlackwork/9.jpg",
                 "aspect": "aspect-[3/4]",
                 "alt": "Sombras"
             },
             {
-                "url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-[4/3]",
+                "url": "/assets/images/GeometricBlackwork/10.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Atmósfera"
             },
             {
-                "url": "https://images.unsplash.com/photo-1562962230-16e4623d36e6?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-[2/3]",
+                "url": "/assets/images/BlackAndGray/14.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Proceso"
             },
             {
-                "url": "https://images.unsplash.com/photo-1590246130796-0370d738424d?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-square",
+                "url": "/assets/images/BlackAndGray/7.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Pigmento"
             },
             {
-                "url": "https://images.unsplash.com/photo-1579208030884-694d4d6e8380?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-[3/5]",
+                "url": "/assets/images/BlackAndGray/15.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Manga Completa"
             },
             {
-                "url": "https://images.unsplash.com/photo-1550537687-c91072c4792d?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-[4/5]",
+                "url": "/assets/images/Allstattoo/10.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Detalle Mano"
             },
             {
-                "url": "https://images.unsplash.com/photo-1621112904887-419379ce6824?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-[2/3]",
+                "url": "/assets/images/Allstattoo/12.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Boceto"
             },
             {
-                "url": "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&w=800&auto=format&fit=crop",
+                "url": "/assets/images/BlackAndGray/6.jpg",
                 "aspect": "aspect-[3/4]",
                 "alt": "Agujas"
             },
             {
-                "url": "https://images.unsplash.com/photo-1596541675762-d99f9273c82d?q=80&w=800&auto=format&fit=crop",
-                "aspect": "aspect-square",
+                "url": "/assets/images/Pet/11.jpg",
+                "aspect": "aspect-[3/4]",
                 "alt": "Flash Art"
             }
         ]
