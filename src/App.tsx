@@ -11,10 +11,7 @@ import PhilosophyScroll from './components/PhilosophyScroll';
 // Inicializar Firebase (Analytics) - REMOVED
 // import './services/firebaseConfig';
 
-import media from './data/media.json';
-
-// Ambient track URL (Royalty free dark ambient texture)
-const AMBIENT_TRACK_URL = media.audio.ambient_track;
+import { COMPANY, NAVIGATION, MEDIA } from './constants';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +22,7 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTrackSelector, setShowTrackSelector] = useState(false);
   // Ensure default track is robust
-  const [currentTrack, setCurrentTrack] = useState(media.audio.playlist && media.audio.playlist.length > 0 ? media.audio.playlist[0] : { title: "Ambient", url: AMBIENT_TRACK_URL });
+  const [currentTrack, setCurrentTrack] = useState(MEDIA.audio.playlist && MEDIA.audio.playlist.length > 0 ? MEDIA.audio.playlist[0] : { title: "Ambient", url: MEDIA.audio.ambient_track });
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Apply theme to document
@@ -48,7 +45,7 @@ const App: React.FC = () => {
     }
   };
 
-  const changeTrack = (track: typeof media.audio.playlist[0]) => {
+  const changeTrack = (track: typeof MEDIA.audio.playlist[0]) => {
     if (!audioRef.current) return;
 
     // Pause current playback to avoid AbortError/Interruption
@@ -56,14 +53,6 @@ const App: React.FC = () => {
 
     setCurrentTrack(track);
     setShowTrackSelector(false); // Close selector after choice
-
-    // Changing state will trigger re-render and src update on the <audio> tag.
-    // We should wait for that update before playing, or handle it via effect.
-    // However, since we are doing manual control, let's just make sure we play if we were playing.
-
-    // Note: The audio tag has src={currentTrack.url}. React will update DOM.
-    // We can auto-play if it was playing, but we need to give React a tick or rely on `autoPlay` attribute logic (which we don't have set dynamically).
-    // A safer way is using a useEffect to watch `currentTrack` changes if we want to auto-continue.
   };
 
   // Effect to resume playing after track change if it was playing
@@ -100,6 +89,10 @@ const App: React.FC = () => {
   };
 
   const scrollToSection = (id: string) => {
+    if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -111,16 +104,8 @@ const App: React.FC = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    scrollToSection('top');
   };
-
-  const navItems = [
-    { label: 'Trabajos', id: 'trabajos' },
-    { label: 'Estilos', id: 'estilos' }
-  ];
 
   return (
     <>
@@ -147,14 +132,14 @@ const App: React.FC = () => {
         {/* Sticky Header Nav */}
         <nav className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center pointer-events-none">
           <div className="pointer-events-auto flex items-center gap-4">
-            {/* GIO Logo Button - Triggers Scroll to Top */}
+            {/* Logo Button - Triggers Scroll to Top */}
             <button
               onClick={scrollToTop}
-              className="text-[var(--text-primary)] font-black tracking-tighter text-xl hover:text-red-600 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none relative z-50"
+              className="text-[var(--text-primary)] font-black tracking-tighter text-xl hover:text-red-600 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none relative z-50 uppercase"
               aria-label="Volver arriba"
               style={{ textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none' }}
             >
-              GIO
+              {COMPANY.name}
             </button>
 
             {/* Theme Toggle Button */}
@@ -186,7 +171,7 @@ const App: React.FC = () => {
               {/* Track Selector Dropdown */}
               {showTrackSelector && (
                 <div className="absolute top-full right-0 mt-4 w-48 bg-[var(--bg-secondary)] border border-[var(--border-color)] p-2 shadow-xl flex flex-col gap-1 z-[60]">
-                  {media.audio.playlist.map((track, idx) => (
+                  {MEDIA.audio.playlist.map((track, idx) => (
                     <button
                       key={idx}
                       onClick={() => changeTrack(track)}
@@ -225,9 +210,9 @@ const App: React.FC = () => {
           </div>
 
           <div className="hidden md:flex gap-8 pointer-events-auto">
-            {navItems.map((item) => (
+            {NAVIGATION.items.map((item) => (
               <button
-                key={item.label}
+                key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className="text-[10px] tracking-[0.3em] font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase bg-transparent border-none cursor-pointer"
               >
@@ -265,14 +250,13 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             {/* Brand Column */}
             <div className="md:col-span-2 space-y-6">
-              <h2 className="text-2xl font-black font-syncopate tracking-tighter text-[var(--text-primary)]">GIO</h2>
+              <h2 className="text-2xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] uppercase">{COMPANY.name}</h2>
               <p className="text-xs md:text-sm text-[var(--text-secondary)] max-w-sm leading-relaxed">
-                Especialista en narrativa visual sobre piel. Transformando el dolor en memoria permanente a través de Blackwork y Realismo Oscuro.
+                {COMPANY.description}
               </p>
               <div className="flex flex-col gap-1 text-[10px] text-[var(--text-secondary)] tracking-widest uppercase mt-4">
-                <span>Estudio Privado</span>
-                <span>Acceso Solo Con Cita</span>
-                <span className="text-red-600 mt-2">C. de la Melancolía 13, 28004 Madrid</span>
+                <span>{COMPANY.accessInfo}</span>
+                <span className="text-red-600 mt-2">{COMPANY.address}</span>
               </div>
             </div>
 
@@ -280,10 +264,16 @@ const App: React.FC = () => {
             <div className="space-y-6">
               <h4 className="text-[10px] font-bold tracking-[0.2em] text-[var(--text-primary)] uppercase">Explorar</h4>
               <ul className="space-y-4">
-                <li><button onClick={scrollToTop} className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest text-left bg-transparent border-none p-0 cursor-pointer">Inicio</button></li>
-                <li><button onClick={() => scrollToSection('trabajos')} className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest text-left bg-transparent border-none p-0 cursor-pointer">Portafolio</button></li>
-                <li><button onClick={() => scrollToSection('estilos')} className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest text-left bg-transparent border-none p-0 cursor-pointer">Estilos</button></li>
-                <li><button onClick={scrollToContact} className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest text-left bg-transparent border-none p-0 cursor-pointer">Reservar</button></li>
+                {NAVIGATION.footerLinks.map((link, idx) => (
+                  <li key={idx}>
+                    <button
+                      onClick={() => scrollToSection(link.id)}
+                      className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest text-left bg-transparent border-none p-0 cursor-pointer"
+                    >
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -291,9 +281,9 @@ const App: React.FC = () => {
             <div className="space-y-6">
               <h4 className="text-[10px] font-bold tracking-[0.2em] text-[var(--text-primary)] uppercase">Conectar</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">Instagram</a></li>
-                <li><a href="#" className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">Email</a></li>
-                <li><a href="#" className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">WhatsApp</a></li>
+                <li><a href={COMPANY.social.instagram} target="_blank" rel="noopener noreferrer" className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">Instagram</a></li>
+                <li><a href={`mailto:${COMPANY.social.email}`} className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">Email</a></li>
+                <li><a href={COMPANY.social.whatsapp} target="_blank" rel="noopener noreferrer" className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">WhatsApp</a></li>
               </ul>
             </div>
           </div>
@@ -301,11 +291,12 @@ const App: React.FC = () => {
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-[var(--border-color)] flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[9px] text-[var(--text-secondary)] tracking-[0.2em] uppercase">
-              &copy; 2026 GIO ARCHIVO DE TATUAJES.
+              &copy; {COMPANY.copyright}
             </p>
             <div className="flex gap-8">
-              <a href="#" className="text-[9px] text-[var(--text-secondary)] tracking-[0.1em] hover:text-[var(--text-primary)] uppercase transition-colors">Privacidad</a>
-              <a href="#" className="text-[9px] text-[var(--text-secondary)] tracking-[0.1em] hover:text-[var(--text-primary)] uppercase transition-colors">Términos</a>
+              {NAVIGATION.legalLinks.map((link, idx) => (
+                <a key={idx} href={link.url} className="text-[9px] text-[var(--text-secondary)] tracking-[0.1em] hover:text-[var(--text-primary)] uppercase transition-colors">{link.label}</a>
+              ))}
             </div>
           </div>
         </footer>

@@ -69,51 +69,5 @@
             "aspect": "aspect-square",
             "alt": "Flash Art"
         }
-    ],
-    "styles": [
-        {
-            "id": "blackwork",
-            "name": "BLACKWORK",
-            "description": "Contraste profundo, saturación pesada y precisión geométrica. Un estudio en el vacío de obsidiana.",
-            "imageUrl": "/assets/images/2.jpg",
-            "gallery": [
-                "/assets/images/2.jpg",
-                "/assets/images/1.jpg",
-                "/assets/images/3.jpg"
-            ]
-        },
-        {
-            "id": "fine-line",
-            "name": "LÍNEA FINA",
-            "description": "Precisión delicada. Líneas tan finas como seda de araña, capturando lo efímero.",
-            "imageUrl": "/assets/images/9.jpg",
-            "gallery": [
-                "/assets/images/8.jpg",
-                "/assets/images/10.jpg",
-                "/assets/images/7.jpg"
-            ]
-        },
-        {
-            "id": "neo-tribal",
-            "name": "NEO TRIBAL",
-            "description": "Flujo agresivo. Formas orgánicas encontrando patrones cibernéticos en un ritual moderno.",
-            "imageUrl": "https://images.unsplash.com/photo-1562962230-16e4623d36e6?q=80&w=1200&auto=format&fit=crop",
-            "gallery": [
-                "https://images.unsplash.com/photo-1596541675762-d99f9273c82d?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1622547748225-3fc4abd2d00b?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1560707303-4e9803d1663c?q=80&w=1200&auto=format&fit=crop"
-            ]
-        },
-        {
-            "id": "dark-realism",
-            "name": "REALISMO OSCURO",
-            "description": "Detalle inquietante. Dando vida a las sombras con intensidad fotográfica.",
-            "imageUrl": "https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=1200&auto=format&fit=crop",
-            "gallery": [
-                "https://images.unsplash.com/photo-1606103920295-97f88c3aa797?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1533552086566-02e07977eb0c?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1571217622838-66236b289a74?q=80&w=1200&auto=format&fit=crop"
-            ]
-        }
     ]
 }

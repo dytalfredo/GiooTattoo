@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import { ARTIST_NAME } from '../constants';
+import { LOADING, COMPANY } from '../constants';
 
 interface LoadingScreenProps {
   onLoaded: () => void;
@@ -44,11 +43,11 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoaded }) => {
             }}
             className="text-red-600 font-syncopate font-bold uppercase tracking-[0.3em] hover:text-white transition-colors animate-pulse text-xl md:text-2xl z-50 pointer-events-auto cursor-pointer"
           >
-            [ INGRESAR ]
+            {LOADING.button}
           </button>
         ) : (
-          <h1 className="text-8xl md:text-[15vw] font-black font-syncopate tracking-tighter text-zinc-900 select-none animate-pulse">
-            {ARTIST_NAME}
+          <h1 className="text-8xl md:text-[15vw] font-black font-syncopate tracking-tighter text-zinc-900 select-none animate-pulse uppercase">
+            {COMPANY.name}
           </h1>
         )}
 
@@ -64,7 +63,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoaded }) => {
 
       <div className={`absolute bottom-12 left-0 w-full px-12 flex flex-col justify-end items-center gap-4 transition-opacity duration-500 ${progress >= 100 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="w-full flex justify-between items-end">
-          <span className="text-[10px] text-zinc-600 uppercase tracking-[0.3em]">Cargando Archivos</span>
+          <span className="text-[10px] text-zinc-600 uppercase tracking-[0.3em]">{LOADING.status}</span>
           <div className="w-24 h-[1px] bg-zinc-800 overflow-hidden">
             <div
               className="h-full bg-red-600 transition-all duration-300"
@@ -80,7 +79,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoaded }) => {
             <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
           </svg>
           <span className="text-[8px] uppercase tracking-[0.2em] font-light">
-            Cargando Experiencia
+            {LOADING.experience}
           </span>
         </div>
       </div>

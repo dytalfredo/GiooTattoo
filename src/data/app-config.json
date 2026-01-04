@@ -1,0 +1,203 @@
+{
+    "company": {
+        "name": "GIO",
+        "tagline": "GRABANDO LO INVISIBLE",
+        "description": "Especialista en narrativa visual sobre piel. Transformando el dolor en memoria permanente a través de Blackwork y Realismo Oscuro.",
+        "shortDescription": "ARCHIVO DE TATUAJES",
+        "address": "Magdalena Del Mar, Galeria Salazar 575, Lima 15001 Perú",
+        "accessInfo": "Estudio Privado - Acceso Solo Con Cita",
+        "copyright": "2026 GIO ARCHIVO DE TATUAJES",
+        "social": {
+            "instagram": "https://www.instagram.com/giootattoo",
+            "email": "giordanojppart@gmail.com",
+            "whatsapp": "https://wa.me/0051934021923"
+        }
+    },
+    "navigation": {
+        "items": [
+            {
+                "label": "Trabajos",
+                "id": "trabajos"
+            },
+            {
+                "label": "Estilos",
+                "id": "estilos"
+            }
+        ],
+        "footerLinks": [
+            {
+                "label": "Inicio",
+                "id": "top"
+            },
+            {
+                "label": "Estilos",
+                "id": "estilos"
+            },
+            {
+                "label": "Reservar",
+                "id": "contact"
+            }
+        ],
+        "legalLinks": [
+            {
+                "label": "Privacidad",
+                "url": "#"
+            },
+            {
+                "label": "Términos",
+                "url": "#"
+            }
+        ]
+    },
+    "loading": {
+        "button": "[ INGRESAR ]",
+        "status": "Cargando Archivos",
+        "experience": "Cargando Experiencia"
+    },
+    "hero": {
+        "label": "Portafolio 2026",
+        "archiveCode": "ARCHIVO-001",
+        "scrollMessage": "Desliza hacia la tinta"
+    },
+    "gallery": {
+        "label": "Moodboard",
+        "title": "ARCHIVO VISUAL",
+        "loadMore": "+ CARGAR MÁS RECUERDOS"
+    },
+    "contact": {
+        "label": "Contacto Directo",
+        "title": "COMPÁRTEME TU IDEA",
+        "description": "Esta es la vía más efectiva para asegurar tu sesión. Olvida los correos genéricos; utiliza este asistente interactivo para definir tu proyecto con precisión. Las propuestas enviadas por este medio tienen prioridad absoluta en mi agenda."
+    },
+    "philosophy": {
+        "label": "Manifiesto",
+        "phrases": [
+            "NO ES UNA IMAGEN",
+            "ES UNA HERIDA",
+            "CICATRIZADA CON VOLUNTAD",
+            "LA PIEL OLVIDA",
+            "LA TINTA RECUERDA",
+            "EL DOLOR ES EL PRECIO",
+            "DE LA ETERNIDAD"
+        ]
+    },
+    "styles": [
+        {
+            "id": "blackwork",
+            "name": "Geometric Blackwork",
+            "description": "Es una de las corrientes más sofisticadas y visualmente impactantes del tatuaje moderno. Como su nombre indica, es la fusión perfecta entre dos mundos: la técnica cruda y sólida del Blackwork y la precisión matemática del Tatuaje Geométrico.",
+            "imageUrl": "/assets/images/GeometricBlackwork/1.jpg",
+            "gallery": [
+                "/assets/images/GeometricBlackwork/2.jpg",
+                "/assets/images/GeometricBlackwork/3.jpg",
+                "/assets/images/GeometricBlackwork/4.jpg"
+            ]
+        },
+        {
+            "id": "realistic",
+            "name": "Realistic Black & Grey",
+            "description": "Es, posiblemente, la disciplina más técnica y detallista en el mundo del tatuaje. Su objetivo es replicar la realidad sobre la piel con la precisión de una fotografía, utilizando únicamente tinta negra y sus diferentes diluciones.",
+            "imageUrl": "/assets/images/BlackAndGray/1.jpg",
+            "gallery": [
+                "/assets/images/BlackAndGray/14.jpg",
+                "/assets/images/BlackAndGray/2.jpg",
+                "/assets/images/BlackAndGray/4.jpg"
+            ]
+        },
+        {
+            "id": "Pet",
+            "name": "Pet Black & Grey",
+            "description": "Es una de las aplicaciones más emotivas y exigentes del tatuaje realista. Su propósito es inmortalizar a nuestros compañeros animales con una fidelidad fotográfica, utilizando exclusivamente la escala de grises para capturar su esencia.",
+            "imageUrl": "/assets/images/Pet/1.jpg",
+            "gallery": [
+                "/assets/images/Pet/9.jpg",
+                "/assets/images/Pet/11.jpg",
+                "/assets/images/Pet/14.jpg"
+            ]
+        },
+        {
+            "id": "dark-realism",
+            "name": "REALISMO OSCURO",
+            "description": "Detalle inquietante. Dando vida a las sombras con intensidad fotográfica.",
+            "imageUrl": "https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=1200&auto=format&fit=crop",
+            "gallery": [
+                "https://images.unsplash.com/photo-1606103920295-97f88c3aa797?q=80&w=1200&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1533552086566-02e07977eb0c?q=80&w=1200&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1571217622838-66236b289a74?q=80&w=1200&auto=format&fit=crop"
+            ]
+        }
+    ],
+    "media": {
+        "audio": {
+            "ambient_track": "/assets/ledzeppelin.mp3",
+            "playlist": [
+                {
+                    "title": "Led Zeppelin",
+                    "url": "/assets/ledzeppelin.mp3"
+                },
+                {
+                    "title": "Dark Ambient 1",
+                    "url": "/assets/ariana.mp3"
+                },
+                {
+                    "title": "La Maquina",
+                    "url": "/assets/maquina.mp3"
+                },
+                {
+                    "title": "One Love",
+                    "url": "/assets/one.mp3"
+                }
+            ]
+        },
+        "videos": {
+            "hero_loop": "/assets/videos/gio_mangaexterna.mp4"
+        },
+        "gallery_grid": [
+            {
+                "url": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[3/4]",
+                "alt": "Sombras"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[4/3]",
+                "alt": "Atmósfera"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1562962230-16e4623d36e6?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[2/3]",
+                "alt": "Proceso"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1590246130796-0370d738424d?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-square",
+                "alt": "Pigmento"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1579208030884-694d4d6e8380?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[3/5]",
+                "alt": "Manga Completa"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1550537687-c91072c4792d?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[4/5]",
+                "alt": "Detalle Mano"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1621112904887-419379ce6824?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[2/3]",
+                "alt": "Boceto"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-[3/4]",
+                "alt": "Agujas"
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1596541675762-d99f9273c82d?q=80&w=800&auto=format&fit=crop",
+                "aspect": "aspect-square",
+                "alt": "Flash Art"
+            }
+        ]
+    }
+}

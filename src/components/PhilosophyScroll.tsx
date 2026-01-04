@@ -1,15 +1,9 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 
-const PHRASES = [
-  "NO ES UNA IMAGEN",
-  "ES UNA HERIDA",
-  "CICATRIZADA CON VOLUNTAD",
-  "LA PIEL OLVIDA",
-  "LA TINTA RECUERDA",
-  "EL DOLOR ES EL PRECIO",
-  "DE LA ETERNIDAD"
-];
+import { PHILOSOPHY } from '../constants';
+
+const PHRASES = PHILOSOPHY.phrases;
 
 interface PhilosophyScrollProps {
   onInViewChange?: (inView: boolean) => void;
@@ -24,18 +18,18 @@ const PhilosophyScroll: React.FC<PhilosophyScrollProps> = ({ onInViewChange }) =
       if (!containerRef.current) return;
       const { top, height } = containerRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      
+
       const start = top;
       const distance = height - viewportHeight;
-      
+
       let pct = -start / distance;
       pct = Math.max(0, Math.min(1, pct));
-      
+
       setProgress(pct);
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); 
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -67,12 +61,12 @@ const PhilosophyScroll: React.FC<PhilosophyScrollProps> = ({ onInViewChange }) =
   return (
     <div ref={containerRef} className="relative bg-[var(--bg-primary)] z-10 transition-colors duration-500" style={{ height: '300vh' }}>
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        
+
         {/* Subtle Background Noise/Gradient - using var for color compatibility */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-primary)] opacity-50" />
-        
+
         {/* Text Container that moves up based on scroll */}
-        <div 
+        <div
           className="relative flex flex-col items-center gap-16 md:gap-20 lg:gap-24 transition-transform duration-75 ease-linear will-change-transform"
           style={{
             transform: `translateY(${50 - (progress * 120)}vh)` // Starts below center, moves up past center
@@ -81,14 +75,14 @@ const PhilosophyScroll: React.FC<PhilosophyScrollProps> = ({ onInViewChange }) =
           {PHRASES.map((phrase, index) => {
             const phrasePos = index / (PHRASES.length - 1);
             const distFromFocus = Math.abs(progress - phrasePos);
-            
+
             const isActive = distFromFocus < 0.15;
             const opacity = Math.max(0.1, 1 - (distFromFocus * 4));
             const blur = Math.max(0, (distFromFocus * 10));
             const scale = isActive ? 1.1 : 0.9;
 
             return (
-              <div 
+              <div
                 key={index}
                 className="transition-all duration-500 ease-out flex flex-col items-center text-center px-4"
                 style={{
@@ -97,11 +91,11 @@ const PhilosophyScroll: React.FC<PhilosophyScrollProps> = ({ onInViewChange }) =
                   transform: `scale(${scale})`
                 }}
               >
-                 {index === 3 && (
-                    <span className="text-red-600 text-[10px] tracking-[0.5em] font-bold uppercase mb-4 block">
-                        Manifiesto
-                    </span>
-                 )}
+                {index === 3 && (
+                  <span className="text-red-600 text-[10px] tracking-[0.5em] font-bold uppercase mb-4 block">
+                    {PHILOSOPHY.label}
+                  </span>
+                )}
                 <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] leading-none">
                   {phrase}
                 </h2>

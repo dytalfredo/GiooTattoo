@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
-import { ARTIST_TAGLINE } from '../constants';
+import { HERO, COMPANY, MEDIA } from '../constants';
 import DustySpotlight from './DustySpotlight';
-import media from '../data/media.json';
 
 interface HeroProps {
   theme: 'dark' | 'light';
@@ -53,8 +51,8 @@ const Hero: React.FC<HeroProps> = ({ theme }) => {
               transform: `translate(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px)`
             }}
           >
-            <span className="text-[8px] md:text-[10px] tracking-[0.5em] text-[var(--text-secondary)] uppercase font-bold block mb-1 md:mb-2">Portafolio 2026</span>
-            <span className="text-[10px] md:text-xs text-[var(--text-primary)] opacity-40 block">001 — ARCHIVO</span>
+            <span className="text-[8px] md:text-[10px] tracking-[0.5em] text-[var(--text-secondary)] uppercase font-bold block mb-1 md:mb-2">{HERO.label}</span>
+            <span className="text-[10px] md:text-xs text-[var(--text-primary)] opacity-40 block">{HERO.archiveCode}</span>
           </div>
 
           {/* Main Interactive Name */}
@@ -113,7 +111,7 @@ const Hero: React.FC<HeroProps> = ({ theme }) => {
               }}
             >
               <span className="text-red-600 text-[1.2vw] md:text-[0.7vw] tracking-[1.5em] font-bold uppercase pl-[1em]">
-                {ARTIST_TAGLINE}
+                {COMPANY.tagline}
               </span>
             </div>
           </div>
@@ -126,7 +124,7 @@ const Hero: React.FC<HeroProps> = ({ theme }) => {
             transform: `translate(${mousePos.x * -0.8}px, ${mousePos.y * -0.8}px) rotate(${mousePos.x * 0.1}deg)`
           }}
         >
-          {media.videos.hero_loop.match(/\.(mp4|webm|ogg|mov)$/i) ? (
+          {MEDIA.videos.hero_loop.match(/\.(mp4|webm|ogg|mov)$/i) ? (
             <video
               autoPlay
               loop
@@ -134,25 +132,25 @@ const Hero: React.FC<HeroProps> = ({ theme }) => {
               playsInline
               className="w-full h-full object-cover"
             >
-              <source src={media.videos.hero_loop} type="video/mp4" />
+              <source src={MEDIA.videos.hero_loop} type="video/mp4" />
               Tu navegador no soporta el elemento de video.
             </video>
           ) : (
             <img
-              src={media.videos.hero_loop}
+              src={MEDIA.videos.hero_loop}
               alt="Hero Visual"
               className="w-full h-full object-cover"
             />
           )}
 
           <div className="absolute inset-0 pointer-events-none border border-white/5 rounded-lg md:rounded-xl shadow-[inset_0_0_30px_rgba(0,0,0,0.6)]"></div>
-          <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-[length:100%_2px,3px_100%] opacity-30"></div>
+          <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,255,0,0.02))] bg-[length:100%_2px,3px_100%] opacity-30"></div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 animate-pulse-slow z-20">
-        <span className="text-[10px] tracking-[0.3em] text-[var(--text-primary)] opacity-30 uppercase">Desliza hacia la tinta</span>
+        <span className="text-[10px] tracking-[0.3em] text-[var(--text-primary)] opacity-30 uppercase">{HERO.scrollMessage}</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--text-primary)] to-transparent opacity-30 mx-auto mt-4" />
       </div>
     </section >

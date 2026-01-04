@@ -1,21 +1,18 @@
-
 import React from 'react';
 import RevealOnScroll from './RevealOnScroll';
+import { GALLERY, MEDIA } from '../constants';
 
-// Placeholder images with varying aspect ratios to create the "Tumblr" masonry feel
-import media from '../data/media.json';
-
-// Placeholder images with varying aspect ratios to create the "Tumblr" masonry feel
-const GALLERY_IMAGES = media.gallery_grid;
+// Images with varying aspect ratios to create the "Tumblr" masonry feel
+const GALLERY_IMAGES = MEDIA.gallery_grid;
 
 const GallerySection: React.FC = () => {
   return (
     <section id="trabajos" className="bg-[var(--bg-primary)] py-32 px-4 md:px-12 relative z-10 transition-colors duration-500">
       <div className="mb-24 px-4 text-center">
         <RevealOnScroll width="100%">
-          <h2 className="text-[10px] tracking-[0.8em] text-[var(--text-secondary)] font-bold uppercase mb-6">Moodboard</h2>
+          <h2 className="text-[10px] tracking-[0.8em] text-[var(--text-secondary)] font-bold uppercase mb-6">{GALLERY.label}</h2>
           <h3 className="text-4xl md:text-6xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] opacity-90">
-            ARCHIVO VISUAL
+            {GALLERY.title}
           </h3>
           <div className="w-[1px] h-16 bg-red-600 mx-auto mt-8 opacity-50" />
         </RevealOnScroll>
@@ -69,7 +66,7 @@ const GallerySection: React.FC = () => {
       <div className="text-center mt-24">
         <RevealOnScroll>
           <p className="text-[var(--text-secondary)] text-xs italic tracking-widest hover:text-red-600 cursor-pointer transition-colors">
-            + CARGAR MÁS RECUERDOS
+            {GALLERY.loadMore}
           </p>
         </RevealOnScroll>
       </div>
