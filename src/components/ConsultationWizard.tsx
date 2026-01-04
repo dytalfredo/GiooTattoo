@@ -463,12 +463,15 @@ const ConsultationWizard: React.FC<ConsultationWizardProps> = ({ onDesignGenerat
             <button
               onClick={sendToWhatsApp}
               disabled={!data.name}
-              className="w-full max-w-sm mx-auto py-4 bg-green-600/90 hover:bg-green-500 text-white text-[10px] font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full max-w-sm mx-auto py-5 bg-[var(--text-primary)] text-[var(--bg-primary)] text-[10px] font-syncopate font-bold tracking-[0.3em] uppercase transition-all flex flex-col items-center justify-center gap-3 border border-transparent hover:bg-transparent hover:text-[var(--text-primary)] hover:border-[var(--text-primary)] disabled:opacity-50 disabled:cursor-not-allowed group"
             >
-              <span>Enviar solicitud por WhatsApp</span>
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z" />
-              </svg>
+              <div className="flex items-center gap-3">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16" className="shrink-0 transition-transform group-hover:scale-110">
+                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z" />
+                </svg>
+                <span className="text-center">Enviar Solicitud</span>
+              </div>
+              <span className="text-[7px] tracking-[0.5em] opacity-60">Cifrado de Final a Final</span>
             </button>
 
             <p className="text-[9px] text-[var(--text-secondary)] text-center max-w-xs mx-auto">
