@@ -13,6 +13,31 @@ const PhilosophyScroll: FC<PhilosophyScrollProps> = ({ onInViewChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
+  // Cache measurements to avoid layout thrashing
+  const dimensions = useRef({ top: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      dimensions.current = {
+        top: rect.top + scrollY,
+        height: rect.height
+      };
+    };
+
+    window.addEventListener('resize', updateDimensions);
+    updateDimensions();
+
+    const timer = setTimeout(updateDimensions, 500);
+
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+      clearTimeout(timer);
+    };
+  }, []);
+
   useEffect(() => {
     let ticking = false;
 
@@ -20,13 +45,14 @@ const PhilosophyScroll: FC<PhilosophyScrollProps> = ({ onInViewChange }) => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           if (!containerRef.current) return;
-          const { top, height } = containerRef.current.getBoundingClientRect();
+          const { top: containerTop, height } = dimensions.current;
           const viewportHeight = window.innerHeight;
 
-          const start = top;
+          // The start of the scrollable container
+          const scrolled = window.scrollY - containerTop;
           const distance = height - viewportHeight;
 
-          let pct = -start / distance;
+          let pct = scrolled / distance;
           pct = Math.max(0, Math.min(1, pct));
 
           setProgress(pct);

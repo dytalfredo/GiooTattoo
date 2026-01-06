@@ -7,6 +7,14 @@ interface Props {
 import "../index.css";
 import config from "../data/app-config.json";
 
+// Import local fonts to avoid render-blocking CDN requests
+import "@fontsource/inter/100.css";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/900.css";
+import "@fontsource/syncopate/400.css";
+import "@fontsource/syncopate/700.css";
+
 const {
 	title = config.company.seo.title,
 	description = config.company.seo.description,
@@ -50,14 +58,6 @@ const {
 		<link rel="apple-touch-icon" href="/pwa-icon.png" />
 
 		<title>{title}</title>
-
-		<!-- Fuentes Google -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@100;300;400;900&display=swap"
-			rel="stylesheet"
-		/>
 	</head>
 	<body>
 		<slot />

@@ -32,9 +32,17 @@ const App: FC = () => {
 
   // Scroll to Top visibility logic
   useEffect(() => {
+    let docHeight = document.documentElement.scrollHeight;
+    let winHeight = window.innerHeight;
+
+    const updateDimensions = () => {
+      docHeight = document.documentElement.scrollHeight;
+      winHeight = window.innerHeight;
+    };
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const height = docHeight - winHeight;
       const progress = scrollY / height;
 
       if (scrollY > 800 || progress > 0.3) {
@@ -44,8 +52,16 @@ const App: FC = () => {
       }
     };
 
+    window.addEventListener('resize', updateDimensions);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Initial dimensions check
+    updateDimensions();
+
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleAudio = () => {

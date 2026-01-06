@@ -74,6 +74,32 @@ const ImmersiveStyles: FC = () => {
 
   const lastIndices = useRef({ style: 0, sub: 0 });
 
+  // Cache measurements to avoid layout thrashing
+  const dimensions = useRef({ top: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      dimensions.current = {
+        top: rect.top + scrollY,
+        height: rect.height
+      };
+    };
+
+    window.addEventListener('resize', updateDimensions);
+    updateDimensions();
+
+    // Use a small delay for late layouts
+    const timer = setTimeout(updateDimensions, 500);
+
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+      clearTimeout(timer);
+    };
+  }, []);
+
   useEffect(() => {
     let ticking = false;
 
@@ -90,11 +116,11 @@ const ImmersiveStyles: FC = () => {
     const updateScrollState = () => {
       if (!containerRef.current) return;
 
-      const { top, height } = containerRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
+      const { top: containerTop, height } = dimensions.current;
 
       // The start of the sticky section
-      const scrolled = -top;
+      const scrolled = window.scrollY - containerTop;
 
       // Only calculate if we are within the container's active scroll area (with some buffer)
       if (scrolled >= -viewportHeight && scrolled <= height) {
@@ -120,7 +146,7 @@ const ImmersiveStyles: FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    updateScrollState(); // Initial check
+    updateScrollState();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [TOTAL_SLIDES]);
