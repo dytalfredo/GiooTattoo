@@ -1,4 +1,4 @@
-import { useState, useEffect, type FC } from 'react';
+import { useState, useEffect, useRef, type FC } from 'react';
 import { HERO, COMPANY, MEDIA } from '../constants';
 import DustySpotlight from './DustySpotlight';
 
@@ -7,22 +7,36 @@ interface HeroProps {
 }
 
 const Hero: FC<HeroProps> = ({ theme }) => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
   const isLight = theme === 'light';
 
   useEffect(() => {
+    let requestRef: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      if (!containerRef.current) return;
+
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+      cancelAnimationFrame(requestRef);
+      requestRef = requestAnimationFrame(() => {
+        if (containerRef.current) {
+          containerRef.current.style.setProperty('--mx', `${x}px`);
+          containerRef.current.style.setProperty('--my', `${y}px`);
+        }
       });
     };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(requestRef);
+    };
   }, []);
 
   return (
-    <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[var(--bg-primary)] transition-colors duration-500">
+    <section ref={containerRef} className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[var(--bg-primary)] transition-colors duration-500 [--mx:0px] [--my:0px]">
 
       {/* 
         THE SPOTLIGHT 
@@ -35,7 +49,7 @@ const Hero: FC<HeroProps> = ({ theme }) => {
       <div
         className="absolute w-[600px] h-[600px] bg-red-900/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-700 ease-out z-0"
         style={{
-          transform: `translate(${mousePos.x}px, ${mousePos.y}px)`
+          transform: `translate(var(--mx), var(--my))`
         }}
       />
 
@@ -48,7 +62,7 @@ const Hero: FC<HeroProps> = ({ theme }) => {
           <div
             className="mb-2 md:mb-6 transition-transform duration-75 ease-out"
             style={{
-              transform: `translate(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px)`
+              transform: `translate(calc(var(--mx) * 0.2), calc(var(--my) * 0.2))`
             }}
           >
             <span className="text-[8px] md:text-[10px] tracking-[0.5em] text-[var(--text-secondary)] uppercase font-bold block mb-1 md:mb-2">{HERO.label}</span>
@@ -60,7 +74,7 @@ const Hero: FC<HeroProps> = ({ theme }) => {
             <h1
               className="text-[15vw] md:text-[18vw] leading-none font-black font-syncopate tracking-tighter text-[var(--text-primary)] transition-transform duration-75 flex items-center justify-center italic"
               style={{
-                transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`
+                transform: `translate(calc(var(--mx) * 0.5), calc(var(--my) * 0.5))`
               }}
               aria-label={COMPANY.name}
             >
@@ -108,7 +122,7 @@ const Hero: FC<HeroProps> = ({ theme }) => {
             <div
               className="mt-[-1vw] flex justify-start"
               style={{
-                transform: `translate(${mousePos.x * -0.3}px, ${mousePos.y * -0.3}px)`
+                transform: `translate(calc(var(--mx) * -0.3), calc(var(--my) * -0.3))`
               }}
             >
               <span className="text-red-600 text-[1.2vw] md:text-[0.7vw] tracking-[1.5em] font-bold uppercase pl-[1em]">
@@ -122,7 +136,7 @@ const Hero: FC<HeroProps> = ({ theme }) => {
         <div
           className="relative w-24 h-44 md:w-56 md:h-[400px] overflow-hidden rounded-lg md:rounded-xl border border-[var(--border-color)] bg-black shadow-2xl transition-transform duration-100 ease-out shrink-0"
           style={{
-            transform: `translate(${mousePos.x * -0.8}px, ${mousePos.y * -0.8}px) rotate(${mousePos.x * 0.1}deg)`
+            transform: `translate(calc(var(--mx) * -0.8), calc(var(--my) * -0.8)) rotate(calc(var(--mx) * 0.1deg))`
           }}
         >
           {MEDIA.videos.hero_loop.match(/\.(mp4|webm|ogg|mov)$/i) ? (

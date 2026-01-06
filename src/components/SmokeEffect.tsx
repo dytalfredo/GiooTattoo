@@ -36,8 +36,28 @@ const SmokeEffect: FC<SmokeEffectProps> = ({ intensity = 'normal', theme = 'dark
     updateDimensions();
     window.addEventListener('resize', updateDimensions);
 
+    const isMobile = width < 768;
     const particles: Particle[] = [];
-    const particleCount = 30;
+    const particleCount = isMobile ? 15 : 30;
+
+    // Pre-render a single smoke puff gradient to an offscreen canvas
+    // This is the CRITICAL optimization: drawing an image is MUCH faster than createRadialGradient
+    const puffSize = 200;
+    const offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = puffSize * 2;
+    offscreenCanvas.height = puffSize * 2;
+    const offCtx = offscreenCanvas.getContext('2d');
+
+    if (offCtx) {
+      const gradient = offCtx.createRadialGradient(puffSize, puffSize, 0, puffSize, puffSize, puffSize);
+      // Use a neutral grey-white that can be tinted by globalCompositeOperation
+      gradient.addColorStop(0, 'rgba(200, 210, 220, 1)');
+      gradient.addColorStop(1, 'rgba(200, 210, 220, 0)');
+      offCtx.fillStyle = gradient;
+      offCtx.beginPath();
+      offCtx.arc(puffSize, puffSize, puffSize, 0, Math.PI * 2);
+      offCtx.fill();
+    }
 
     class Particle {
       x: number;
@@ -97,21 +117,18 @@ const SmokeEffect: FC<SmokeEffectProps> = ({ intensity = 'normal', theme = 'dark
         this.life--;
 
         // Determine target max opacity based on intensity
-        // Normal: 0.08 (Subtle)
-        // High: 0.35 (Dense fog)
         const targetMaxOpacity = isHighIntensity ? 0.35 : 0.08;
 
         // Smoothly transition opacity
         if (this.life > this.maxLife * 0.8) {
-          if (this.opacity < targetMaxOpacity) this.opacity += 0.002; // Fade in faster
+          if (this.opacity < targetMaxOpacity) this.opacity += 0.002;
         } else if (this.life < this.maxLife * 0.4) {
           this.opacity -= 0.001;
         } else {
-          // Adjust existing opacity towards target if state changed mid-life
           if (this.opacity < targetMaxOpacity) {
             this.opacity += 0.001;
           } else if (this.opacity > targetMaxOpacity && !isHighIntensity) {
-            this.opacity -= 0.005; // Fade out quickly if switching back to normal
+            this.opacity -= 0.005;
           }
         }
 
@@ -125,23 +142,18 @@ const SmokeEffect: FC<SmokeEffectProps> = ({ intensity = 'normal', theme = 'dark
       draw(ctx: CanvasRenderingContext2D) {
         if (this.opacity <= 0) return;
 
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
 
-        // Dark theme: White smoke (Screen blend)
-        // Light theme: Dark Grey ink (Multiply blend)
-        const isDark = themeRef.current === 'dark';
-
-        const r = isDark ? 180 : 30;
-        const g = isDark ? 190 : 30;
-        const b = isDark ? 200 : 35;
-
-        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.opacity})`);
-        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-
-        ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
+        // Draw the pre-rendered puff instead of creating a gradient
+        ctx.drawImage(
+          offscreenCanvas,
+          this.x - this.size,
+          this.y - this.size,
+          this.size * 2,
+          this.size * 2
+        );
+        ctx.restore();
       }
     }
 
@@ -154,8 +166,6 @@ const SmokeEffect: FC<SmokeEffectProps> = ({ intensity = 'normal', theme = 'dark
       ctx.clearRect(0, 0, width, height);
 
       // Switch Blend Mode based on theme
-      // Dark mode = Screen (Lights up background)
-      // Light mode = Multiply (Darkens background like ink)
       ctx.globalCompositeOperation = themeRef.current === 'dark' ? 'screen' : 'multiply';
 
       particles.forEach(p => {
