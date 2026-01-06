@@ -141,6 +141,8 @@ const Hero: FC<HeroProps> = ({ theme }) => {
             <img
               src={MEDIA.videos.hero_loop}
               alt="Hero Visual"
+              width={500}
+              height={800}
               className="w-full h-full object-cover"
             />
           )}

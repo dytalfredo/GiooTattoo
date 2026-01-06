@@ -195,6 +195,7 @@ const App: FC = () => {
               <button
                 onClick={() => setShowTrackSelector(!showTrackSelector)}
                 className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[var(--text-secondary)] hover:text-red-600 transition-colors"
+                aria-label="Seleccionar pista de audio"
               >
                 <span className="max-w-[80px] md:max-w-[100px] truncate">{currentTrack?.title || "Ambient"}</span>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${showTrackSelector ? 'rotate-180' : ''}`}>

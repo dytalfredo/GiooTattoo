@@ -283,12 +283,14 @@ const ConsultationWizard: React.FC<ConsultationWizardProps> = ({ onDesignGenerat
             </h3>
             <p className="text-[var(--text-secondary)] text-center text-xs">Selecciona el tono base.</p>
             <div className="grid grid-cols-4 gap-4 max-w-xs mx-auto">
-              {SKIN_TONES.map((tone) => (
+              {SKIN_TONES.map((tone, idx) => (
                 <button
                   key={tone}
                   onClick={() => updateData('skinTone', tone)}
                   className={`w-10 h-10 rounded-full border-2 transition-transform duration-300 hover:scale-110 ${data.skinTone === tone ? 'border-red-600 scale-110' : 'border-transparent'}`}
                   style={{ backgroundColor: tone }}
+                  aria-label={`Seleccionar tono de piel ${idx + 1}`}
+                  aria-pressed={data.skinTone === tone}
                 />
               ))}
             </div>

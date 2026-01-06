@@ -28,6 +28,8 @@ const GallerySection: React.FC = () => {
               <img
                 src={img.url}
                 alt={img.alt}
+                width={800}
+                height={1200}
                 className="w-full object-cover grayscale transition-all duration-700 ease-out 
                              brightness-[0.6] contrast-[1.1] 
                              group-hover:scale-105 group-hover:brightness-100 group-hover:contrast-100"

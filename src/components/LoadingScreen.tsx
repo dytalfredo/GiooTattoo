@@ -41,7 +41,7 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded }) => {
               setOpacity(0);
               setTimeout(onLoaded, 800);
             }}
-            className="text-red-600 font-syncopate font-bold uppercase tracking-[0.3em] hover:text-white transition-colors animate-pulse text-xl md:text-2xl z-50 pointer-events-auto cursor-pointer"
+            className="text-red-500 font-syncopate font-bold uppercase tracking-[0.3em] hover:text-white transition-colors animate-pulse text-xl md:text-2xl z-50 pointer-events-auto cursor-pointer"
           >
             {LOADING.button}
           </button>
@@ -54,7 +54,7 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded }) => {
         {/* Percentage - Hide when ready */}
         {progress < 100 && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none">
-            <span className="text-red-600 font-mono text-xl md:text-2xl font-bold tracking-widest">
+            <span className="text-red-500 font-mono text-xl md:text-2xl font-bold tracking-widest">
               {Math.min(progress, 100)}%
             </span>
           </div>

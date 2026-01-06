@@ -53,6 +53,8 @@ const CrossfadeBackground: FC<{ src: string; alt: string }> = ({ src, alt }) => 
             <img
               src={layer.src}
               alt={layer.alt}
+              width={1920}
+              height={1080}
               className="w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--overlay-gradient-mid)] to-transparent" />
