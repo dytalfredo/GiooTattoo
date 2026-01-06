@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'http://gio-estudio.netlify.app/',
     integrations: [react(), tailwind()],
     outDir: 'dist',
     server: {

@@ -1,14 +1,16 @@
 ---
 interface Props {
-	title: string;
+	title?: string;
 	description?: string;
 }
 
-const {
-	title,
-	description = "Portafolio de Tatuajes de GIO. Especialista en Blackwork y Realismo Oscuro.",
-} = Astro.props;
 import "../index.css";
+import config from "../data/app-config.json";
+
+const {
+	title = config.company.seo.title,
+	description = config.company.seo.description,
+} = Astro.props;
 ---
 
 <!doctype html>
