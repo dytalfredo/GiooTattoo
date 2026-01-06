@@ -94,44 +94,44 @@
             "id": "blackwork",
             "name": "Geometric Blackwork",
             "description": "Es una de las corrientes más sofisticadas y visualmente impactantes del tatuaje moderno. Como su nombre indica, es la fusión perfecta entre dos mundos: la técnica cruda y sólida del Blackwork y la precisión matemática del Tatuaje Geométrico.",
-            "imageUrl": "/assets/images/GeometricBlackwork/1.jpg",
+            "imageUrl": "/assets/images/GeometricBlackwork/1.webp",
             "gallery": [
-                "/assets/images/GeometricBlackwork/2.jpg",
-                "/assets/images/GeometricBlackwork/3.jpg",
-                "/assets/images/GeometricBlackwork/4.jpg"
+                "/assets/images/GeometricBlackwork/2.webp",
+                "/assets/images/GeometricBlackwork/3.webp",
+                "/assets/images/GeometricBlackwork/4.webp"
             ]
         },
         {
             "id": "realistic",
             "name": "Realistic Black & Grey",
             "description": "Es, posiblemente, la disciplina más técnica y detallista en el mundo del tatuaje. Su objetivo es replicar la realidad sobre la piel con la precisión de una fotografía, utilizando únicamente tinta negra y sus diferentes diluciones.",
-            "imageUrl": "/assets/images/BlackAndGray/1.jpg",
+            "imageUrl": "/assets/images/BlackAndGray/1.webp",
             "gallery": [
-                "/assets/images/BlackAndGray/14.jpg",
-                "/assets/images/BlackAndGray/2.jpg",
-                "/assets/images/BlackAndGray/4.jpg"
+                "/assets/images/BlackAndGray/14.webp",
+                "/assets/images/BlackAndGray/2.webp",
+                "/assets/images/BlackAndGray/4.webp"
             ]
         },
         {
             "id": "Pet",
             "name": "Pet Black & Grey",
             "description": "Es una de las aplicaciones más emotivas y exigentes del tatuaje realista. Su propósito es inmortalizar a nuestros compañeros animales con una fidelidad fotográfica, utilizando exclusivamente la escala de grises para capturar su esencia.",
-            "imageUrl": "/assets/images/Pet/1.jpg",
+            "imageUrl": "/assets/images/Pet/1.webp",
             "gallery": [
-                "/assets/images/Pet/9.jpg",
-                "/assets/images/Pet/11.jpg",
-                "/assets/images/Pet/14.jpg"
+                "/assets/images/Pet/9.webp",
+                "/assets/images/Pet/11.webp",
+                "/assets/images/Pet/14.webp"
             ]
         },
         {
             "id": "otros",
             "name": "OTher",
             "description": "En nuestro estudio, no creemos en un solo estilo, sino en la maestría técnica adaptada a tu visión. Nuestra galería refleja una amplia gama de posibilidades: desde el realismo emocional de un retrato de tu mascota hasta la precisión matemática de la geometría ornamental.",
-            "imageUrl": "/assets/images/Allstattoo/12.jpg",
+            "imageUrl": "/assets/images/Allstattoo/12.webp",
             "gallery": [
-                "/assets/images/Allstattoo/7.jpg",
-                "/assets/images/Allstattoo/2.jpg",
-                "/assets/images/Allstattoo/13.jpg"
+                "/assets/images/Allstattoo/7.webp",
+                "/assets/images/Allstattoo/2.webp",
+                "/assets/images/Allstattoo/13.webp"
             ]
         }
     ],
@@ -154,47 +154,47 @@
         },
         "gallery_grid": [
             {
-                "url": "/assets/images/GeometricBlackwork/9.jpg",
+                "url": "/assets/images/GeometricBlackwork/9.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Geometric"
             },
             {
-                "url": "/assets/images/GeometricBlackwork/10.jpg",
+                "url": "/assets/images/GeometricBlackwork/10.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Geometric"
             },
             {
-                "url": "/assets/images/BlackAndGray/14.jpg",
+                "url": "/assets/images/BlackAndGray/14.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Realistic"
             },
             {
-                "url": "/assets/images/BlackAndGray/7.jpg",
+                "url": "/assets/images/BlackAndGray/7.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Realistic"
             },
             {
-                "url": "/assets/images/BlackAndGray/15.jpg",
+                "url": "/assets/images/BlackAndGray/15.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Realistic"
             },
             {
-                "url": "/assets/images/Allstattoo/10.jpg",
+                "url": "/assets/images/Allstattoo/10.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Other"
             },
             {
-                "url": "/assets/images/Allstattoo/12.jpg",
+                "url": "/assets/images/Allstattoo/12.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Other"
             },
             {
-                "url": "/assets/images/BlackAndGray/6.jpg",
+                "url": "/assets/images/BlackAndGray/6.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Realistic"
             },
             {
-                "url": "/assets/images/Pet/11.jpg",
+                "url": "/assets/images/Pet/11.webp",
                 "aspect": "aspect-[3/4]",
                 "alt": "Pet"
             }

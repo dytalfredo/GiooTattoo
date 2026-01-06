@@ -13,7 +13,7 @@ const ContactSection: React.FC = () => {
 
         <div className="text-center mb-16">
           <RevealOnScroll width="100%">
-            <h2 className="text-[10px] tracking-[0.6em] text-[var(--text-secondary)] font-bold uppercase mb-4">{CONTACT.label}</h2>
+            <span className="text-[10px] tracking-[0.6em] text-[var(--text-secondary)] font-bold uppercase mb-4 block">{CONTACT.label}</span>
             <h2 className="text-4xl md:text-7xl font-black font-syncopate tracking-tighter leading-none text-[var(--text-primary)] uppercase">
               {CONTACT.title.split(' ').map((word, i, arr) => (
                 <span key={i}>

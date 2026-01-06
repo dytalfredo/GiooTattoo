@@ -297,7 +297,7 @@ const App: FC = () => {
 
             {/* Links Column */}
             <div className="space-y-6">
-              <h4 className="text-[10px] font-bold tracking-[0.2em] text-[var(--text-primary)] uppercase">Explorar</h4>
+              <h3 className="text-[10px] font-bold tracking-[0.2em] text-[var(--text-primary)] uppercase">Explorar</h3>
               <ul className="space-y-4">
                 {NAVIGATION.footerLinks.map((link, idx) => (
                   <li key={idx}>
@@ -314,7 +314,7 @@ const App: FC = () => {
 
             {/* Social / Contact Column */}
             <div className="space-y-6">
-              <h4 className="text-[10px] font-bold tracking-[0.2em] text-[var(--text-primary)] uppercase">Conectar</h4>
+              <h3 className="text-[10px] font-bold tracking-[0.2em] text-[var(--text-primary)] uppercase">Conectar</h3>
               <ul className="space-y-4">
                 <li><a href={COMPANY.social.instagram} target="_blank" rel="noopener noreferrer" className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">Instagram</a></li>
                 <li><a href={`mailto:${COMPANY.social.email}`} className="text-xs text-[var(--text-secondary)] hover:text-red-600 transition-colors uppercase tracking-widest block">Email</a></li>

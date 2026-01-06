@@ -10,7 +10,7 @@ const GallerySection: React.FC = () => {
     <section id="trabajos" className="bg-[var(--bg-primary)] py-32 px-4 md:px-12 relative z-10 transition-colors duration-500">
       <div className="mb-24 px-4 text-center">
         <RevealOnScroll width="100%">
-          <h2 className="text-[10px] tracking-[0.8em] text-[var(--text-secondary)] font-bold uppercase mb-6">{GALLERY.label}</h2>
+          <span className="text-[10px] tracking-[0.8em] text-[var(--text-secondary)] font-bold uppercase mb-6 block">{GALLERY.label}</span>
           <h2 className="text-4xl md:text-6xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] opacity-90">
             {GALLERY.title}
           </h2>
@@ -50,9 +50,9 @@ const GallerySection: React.FC = () => {
 
               {/* Bottom Left: Title & Line */}
               <div className="absolute bottom-8 left-8 z-10">
-                <h4 className="text-white text-xs font-bold tracking-[0.2em] uppercase translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                <h3 className="text-white text-xs font-bold tracking-[0.2em] uppercase translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   {img.alt}
-                </h4>
+                </h3>
                 <div className="w-0 group-hover:w-12 h-[1px] bg-red-600 mt-2 transition-all duration-700 ease-out delay-200" />
               </div>
 
