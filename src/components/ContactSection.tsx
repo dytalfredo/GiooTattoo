@@ -14,14 +14,14 @@ const ContactSection: React.FC = () => {
         <div className="text-center mb-16">
           <RevealOnScroll width="100%">
             <h2 className="text-[10px] tracking-[0.6em] text-[var(--text-secondary)] font-bold uppercase mb-4">{CONTACT.label}</h2>
-            <h3 className="text-4xl md:text-7xl font-black font-syncopate tracking-tighter leading-none text-[var(--text-primary)] uppercase">
+            <h2 className="text-4xl md:text-7xl font-black font-syncopate tracking-tighter leading-none text-[var(--text-primary)] uppercase">
               {CONTACT.title.split(' ').map((word, i, arr) => (
                 <span key={i}>
                   {word === 'IDEA' ? <span className="text-red-600">{word}</span> : word}
                   {i < arr.length - 1 ? ' ' : ''}
                 </span>
               ))}
-            </h3>
+            </h2>
             <p className="mt-6 text-[var(--text-secondary)] text-sm max-w-xl mx-auto leading-relaxed">
               {CONTACT.description}
             </p>

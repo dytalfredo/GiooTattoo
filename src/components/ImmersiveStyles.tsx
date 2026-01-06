@@ -3,8 +3,8 @@ import { TATTOO_STYLES } from '../constants';
 import RevealOnScroll from './RevealOnScroll';
 
 // Internal component to handle smooth image transitions
-const CrossfadeBackground: FC<{ src: string }> = ({ src }) => {
-  const [layers, setLayers] = useState<{ src: string; id: number }[]>([{ src, id: Date.now() }]);
+const CrossfadeBackground: FC<{ src: string; alt: string }> = ({ src, alt }) => {
+  const [layers, setLayers] = useState<{ src: string; id: number; alt: string }[]>([{ src, id: Date.now(), alt }]);
 
   useEffect(() => {
     // When prop src changes, add a new layer
@@ -14,12 +14,12 @@ const CrossfadeBackground: FC<{ src: string }> = ({ src }) => {
       // If the src hasn't actually changed (e.g. double render), do nothing
       if (lastLayer.src === src) return prev;
 
-      const newLayer = { src, id: Date.now() };
+      const newLayer = { src, id: Date.now(), alt };
       // Keep the visual history clean: [OldImage, NewImage]
       // We keep the old one so the background doesn't flicker black while the new one fades in
       return [lastLayer, newLayer];
     });
-  }, [src]);
+  }, [src, alt]);
 
   // Clean up old layers after transition finishes to save memory
   useEffect(() => {
@@ -52,7 +52,7 @@ const CrossfadeBackground: FC<{ src: string }> = ({ src }) => {
           >
             <img
               src={layer.src}
-              alt="Background"
+              alt={layer.alt}
               className="w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--overlay-gradient-mid)] to-transparent" />
@@ -168,9 +168,9 @@ const ImmersiveStyles: FC = () => {
       <div className="pt-32 pb-16 px-6 md:px-24">
         <RevealOnScroll>
           <h2 className="text-[10px] tracking-[0.6em] text-red-600 font-bold uppercase mb-4">Especialidades</h2>
-          <h3 className="text-4xl sm:text-5xl md:text-8xl font-black font-syncopate leading-none tracking-tighter text-[var(--text-primary)]">
+          <h1 className="text-4xl sm:text-5xl md:text-8xl font-black font-syncopate leading-none tracking-tighter text-[var(--text-primary)]">
             ESTILOS DE <br /> EJECUCIÓN
-          </h3>
+          </h1>
           <p className="mt-8 text-[var(--text-secondary)] text-xs md:text-sm max-w-md border-l border-[var(--border-color)] pl-6">
             Desplázate hacia abajo para explorar en detalle cada disciplina visual.
           </p>
@@ -186,7 +186,7 @@ const ImmersiveStyles: FC = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-[var(--bg-secondary)] flex items-center justify-center">
 
           {/* Enhanced Background Image Transition */}
-          <CrossfadeBackground src={getCurrentImage()} />
+          <CrossfadeBackground src={getCurrentImage()} alt={`GIO - Estilo ${currentStyle.name}`} />
 
           {/* 
              DESKTOP NAVIGATION (VERTICAL LEFT)
@@ -265,12 +265,12 @@ const ImmersiveStyles: FC = () => {
               Visible only when subIndex === 0
             */}
             <div className={`transition-all duration-700 absolute inset-0 flex flex-col justify-center items-center text-center px-4 ${activeSubIndex === 0 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95 pointer-events-none'}`}>
-              <h2 className="text-[25vw] md:text-[12vw] leading-none font-black font-syncopate tracking-tighter text-[var(--text-primary)] opacity-10 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+              <div className="text-[25vw] md:text-[12vw] leading-none font-black font-syncopate tracking-tighter text-[var(--text-primary)] opacity-10 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
                 {activeStyleIndex + 1}
-              </h2>
-              <h3 className="text-4xl sm:text-5xl md:text-8xl font-black font-syncopate tracking-tighter mb-6 relative z-10 mix-blend-overlay break-words w-full text-[var(--text-primary)]">
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-8xl font-black font-syncopate tracking-tighter mb-6 relative z-10 mix-blend-overlay break-words w-full text-[var(--text-primary)]">
                 {currentStyle.name}
-              </h3>
+              </h2>
               <div className="w-16 md:w-24 h-1 bg-red-600 mb-6 md:mb-8" />
               <p className="text-sm sm:text-base md:text-2xl text-[var(--text-primary)] max-w-xs md:max-w-2xl font-light leading-relaxed">
                 {currentStyle.description}

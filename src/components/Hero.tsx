@@ -58,10 +58,11 @@ const Hero: FC<HeroProps> = ({ theme }) => {
           {/* Main Interactive Name */}
           <div className="relative">
             <h1
-              className="text-[15vw] md:text-[18vw] leading-none font-black font-syncopate tracking-tighter text-[var(--text-primary)] transition-transform duration-75 flex items-center justify-center"
+              className="text-[15vw] md:text-[18vw] leading-none font-black font-syncopate tracking-tighter text-[var(--text-primary)] transition-transform duration-75 flex items-center justify-center italic"
               style={{
                 transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`
               }}
+              aria-label={COMPANY.name}
             >
               {/* LETTER G */}
               <span

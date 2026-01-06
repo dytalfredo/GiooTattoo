@@ -11,9 +11,9 @@ const GallerySection: React.FC = () => {
       <div className="mb-24 px-4 text-center">
         <RevealOnScroll width="100%">
           <h2 className="text-[10px] tracking-[0.8em] text-[var(--text-secondary)] font-bold uppercase mb-6">{GALLERY.label}</h2>
-          <h3 className="text-4xl md:text-6xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] opacity-90">
+          <h2 className="text-4xl md:text-6xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] opacity-90">
             {GALLERY.title}
-          </h3>
+          </h2>
           <div className="w-[1px] h-16 bg-red-600 mx-auto mt-8 opacity-50" />
         </RevealOnScroll>
       </div>
