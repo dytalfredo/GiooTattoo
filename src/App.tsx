@@ -1,12 +1,14 @@
 
-import { useState, useEffect, useRef, type FC } from 'react';
+import { useState, useEffect, useRef, type FC, lazy, Suspense } from 'react';
 import Hero from './components/Hero';
-import ImmersiveStyles from './components/ImmersiveStyles';
-import GallerySection from './components/GallerySection';
-import ContactSection from './components/ContactSection';
-import SmokeEffect from './components/SmokeEffect';
 import LoadingScreen from './components/LoadingScreen';
-import PhilosophyScroll from './components/PhilosophyScroll';
+import SmokeEffect from './components/SmokeEffect';
+
+// Lazy load below-the-fold components
+const ImmersiveStyles = lazy(() => import('./components/ImmersiveStyles'));
+const GallerySection = lazy(() => import('./components/GallerySection'));
+const PhilosophyScroll = lazy(() => import('./components/PhilosophyScroll'));
+const ContactSection = lazy(() => import('./components/ContactSection'));
 
 // Inicializar Firebase (Analytics) - REMOVED
 // import './services/firebaseConfig';
@@ -268,17 +270,19 @@ const App: FC = () => {
         {/* Page Content */}
         <Hero theme={theme} />
 
-        {/* Immersive Scroll Section */}
-        <ImmersiveStyles />
+        <Suspense fallback={<div className="h-screen bg-black" />}>
+          {/* Immersive Scroll Section */}
+          <ImmersiveStyles />
 
-        {/* Gallery Section */}
-        <GallerySection />
+          {/* Gallery Section */}
+          <GallerySection />
 
-        {/* Text Scrollytelling Section triggers the Meditative state */}
-        <PhilosophyScroll onInViewChange={setIsMeditative} />
+          {/* Text Scrollytelling Section triggers the Meditative state */}
+          <PhilosophyScroll onInViewChange={setIsMeditative} />
 
-        {/* Contact Section now includes the Wizard logic */}
-        <ContactSection />
+          {/* Contact Section now includes the Wizard logic */}
+          <ContactSection />
+        </Suspense>
 
         {/* Footer */}
         <footer className="bg-[var(--bg-primary)] pt-24 pb-12 md:pb-12 pb-24 px-6 md:px-24 border-t border-[var(--border-color)] transition-colors duration-500">
