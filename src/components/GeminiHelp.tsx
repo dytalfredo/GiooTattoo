@@ -1,12 +1,12 @@
 
-import React from 'react';
+import { type FC } from 'react';
 
 interface GeminiHelpProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-const GeminiHelp: React.FC<GeminiHelpProps> = ({ isOpen, onClose }) => {
+const GeminiHelp: FC<GeminiHelpProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (

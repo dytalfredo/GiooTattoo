@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, type FC } from 'react';
 
 import { PHILOSOPHY } from '../constants';
 
@@ -9,26 +9,34 @@ interface PhilosophyScrollProps {
   onInViewChange?: (inView: boolean) => void;
 }
 
-const PhilosophyScroll: React.FC<PhilosophyScrollProps> = ({ onInViewChange }) => {
+const PhilosophyScroll: FC<PhilosophyScrollProps> = ({ onInViewChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      if (!containerRef.current) return;
-      const { top, height } = containerRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!containerRef.current) return;
+          const { top, height } = containerRef.current.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
 
-      const start = top;
-      const distance = height - viewportHeight;
+          const start = top;
+          const distance = height - viewportHeight;
 
-      let pct = -start / distance;
-      pct = Math.max(0, Math.min(1, pct));
+          let pct = -start / distance;
+          pct = Math.max(0, Math.min(1, pct));
 
-      setProgress(pct);
+          setProgress(pct);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

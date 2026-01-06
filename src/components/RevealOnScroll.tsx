@@ -1,18 +1,18 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type FC, type ReactNode } from 'react';
 
 interface RevealProps {
-  children: React.ReactNode;
+  children: ReactNode;
   width?: 'fit-content' | '100%';
   delay?: number;
   className?: string;
 }
 
-const RevealOnScroll: React.FC<RevealProps> = ({ 
-  children, 
-  width = 'fit-content', 
+const RevealOnScroll: FC<RevealProps> = ({
+  children,
+  width = 'fit-content',
   delay = 0,
-  className = "" 
+  className = ""
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -47,11 +47,10 @@ const RevealOnScroll: React.FC<RevealProps> = ({
   const transitionDelay = `${delay}s`;
 
   return (
-    <div 
-      ref={ref} 
-      className={`${className} transition-all duration-1000 ease-out transform ${
-        isVisible ? 'opacity-100 translate-y-0 filter blur-0' : 'opacity-0 translate-y-12 filter blur-sm'
-      }`}
+    <div
+      ref={ref}
+      className={`${className} transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0 filter blur-0' : 'opacity-0 translate-y-12 filter blur-sm'
+        }`}
       style={{ width, transitionDelay }}
     >
       {children}

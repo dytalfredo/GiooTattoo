@@ -1,10 +1,9 @@
-
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, type FC } from 'react';
 import { TATTOO_STYLES } from '../constants';
 import RevealOnScroll from './RevealOnScroll';
 
 // Internal component to handle smooth image transitions
-const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
+const CrossfadeBackground: FC<{ src: string }> = ({ src }) => {
   const [layers, setLayers] = useState<{ src: string; id: number }[]>([{ src, id: Date.now() }]);
 
   useEffect(() => {
@@ -35,8 +34,6 @@ const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[var(--bg-primary)]">
       {layers.map((layer, index) => {
-        // The new layer (last in array) needs to animate in. 
-        // The old layer (first in array) just stays there to provide background.
         const isNew = index === layers.length - 1 && layers.length > 1;
 
         return (
@@ -44,7 +41,6 @@ const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
             key={layer.id}
             className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-out will-change-transform ${isNew ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
               }`}
-            // We use a ref or simple timeout to trigger the 'enter' state
             ref={(el) => {
               if (el && isNew) {
                 requestAnimationFrame(() => {
@@ -59,7 +55,6 @@ const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
               alt="Background"
               className="w-full h-full object-cover opacity-60"
             />
-            {/* Dynamic Gradient Overlay based on Theme */}
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--overlay-gradient-mid)] to-transparent" />
           </div>
         );
@@ -68,7 +63,7 @@ const CrossfadeBackground: React.FC<{ src: string }> = ({ src }) => {
   );
 };
 
-const ImmersiveStyles: React.FC = () => {
+const ImmersiveStyles: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeStyleIndex, setActiveStyleIndex] = useState(0);
   const [activeSubIndex, setActiveSubIndex] = useState(0); // 0 = Intro, 1-3 = Gallery

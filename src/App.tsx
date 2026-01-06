@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type FC } from 'react';
 import Hero from './components/Hero';
 import ImmersiveStyles from './components/ImmersiveStyles';
 import GallerySection from './components/GallerySection';
@@ -13,10 +13,11 @@ import PhilosophyScroll from './components/PhilosophyScroll';
 
 import { COMPANY, NAVIGATION, MEDIA } from './constants';
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMeditative, setIsMeditative] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   // Audio State
   const [isPlaying, setIsPlaying] = useState(false);
@@ -25,10 +26,27 @@ const App: React.FC = () => {
   const [currentTrack, setCurrentTrack] = useState(MEDIA.audio.playlist && MEDIA.audio.playlist.length > 0 ? MEDIA.audio.playlist[0] : { title: "Ambient", url: MEDIA.audio.ambient_track });
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Apply theme to document
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Scroll to Top visibility logic
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollY / height;
+
+      if (scrollY > 800 || progress > 0.3) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleAudio = () => {
     if (!audioRef.current) return;
@@ -246,7 +264,7 @@ const App: React.FC = () => {
         <ContactSection />
 
         {/* Footer */}
-        <footer className="bg-[var(--bg-primary)] pt-24 pb-12 px-6 md:px-24 border-t border-[var(--border-color)] transition-colors duration-500">
+        <footer className="bg-[var(--bg-primary)] pt-24 pb-12 md:pb-12 pb-24 px-6 md:px-24 border-t border-[var(--border-color)] transition-colors duration-500">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             {/* Brand Column */}
             <div className="md:col-span-2 space-y-6">
@@ -300,6 +318,47 @@ const App: React.FC = () => {
             </div>
           </div>
         </footer>
+
+        {/* Mobile Bottom Navigation Bar */}
+        <nav className="fixed bottom-0 left-0 w-full z-[70] md:hidden flex justify-around items-center px-4 py-3 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-t border-[var(--border-color)]">
+          {NAVIGATION.items.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="flex flex-col items-center gap-1 text-[8px] uppercase tracking-widest text-[var(--text-secondary)] hover:text-red-500 transition-colors"
+            >
+              <span className="font-bold">{item.label}</span>
+            </button>
+          ))}
+          <button
+            onClick={scrollToContact}
+            className="flex flex-col items-center gap-1 text-[8px] uppercase tracking-widest text-red-500"
+          >
+            <span className="font-bold">Reservar</span>
+          </button>
+        </nav>
+
+        {/* Back to Top Button */}
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-8 right-8 z-[60] p-4 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-red-600 shadow-2xl transition-all duration-500 hover:bg-red-600 hover:text-white group sm:flex hidden items-center justify-center ${showBackToTop ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'
+            }`}
+          aria-label="Volver al inicio"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="transition-transform group-hover:-translate-y-1"
+          >
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+        </button>
 
         {/* Custom Cursor Overlay - Inverted in light mode */}
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[9999] mix-blend-difference">

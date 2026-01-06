@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { LOADING, COMPANY } from '../constants';
 
 interface LoadingScreenProps {
   onLoaded: () => void;
 }
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoaded }) => {
+const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded }) => {
   const [progress, setProgress] = useState(0);
   const [opacity, setOpacity] = useState(100);
 

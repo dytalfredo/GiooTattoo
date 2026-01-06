@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Privacidad | GIO ARCHIVO">
+    <main
+        class="min-h-screen bg-[var(--bg-primary)] pt-32 pb-24 px-6 md:px-24 transition-colors duration-500"
+    >
+        <div class="max-w-3xl mx-auto space-y-12">
+            <header class="space-y-4">
+                <h1
+                    class="text-4xl md:text-6xl font-black font-syncopate tracking-tighter text-[var(--text-primary)] uppercase"
+                >
+                    Política de Privacidad
+                </h1>
+                <div class="w-16 h-1 bg-red-600"></div>
+                <p
+                    class="text-[10px] tracking-[0.4em] text-[var(--text-secondary)] uppercase"
+                >
+                    Última actualización: 06 Enero 2026
+                </p>
+            </header>
+
+            <section
+                class="space-y-6 text-[var(--text-secondary)] text-sm leading-relaxed"
+            >
+                <p>
+                    En trasfondo de cada cicatriz hay una historia, y en GIO
+                    ARCHIVO respetamos la integridad de esa narrativa. Esta
+                    política detalla cómo manejamos tu información dentro de
+                    nuestro entorno digital.
+                </p>
+
+                <div class="space-y-4">
+                    <h2
+                        class="text-xs font-bold text-[var(--text-primary)] uppercase tracking-[0.2em] border-l-2 border-red-600 pl-4"
+                    >
+                        1. Recopilación de Datos
+                    </h2>
+                    <p>
+                        Recopilamos únicamente la información necesaria para
+                        procesar tu solicitud de diseño: nombre, referencias
+                        visuales (opcional), zona del cuerpo y descripción del
+                        proyecto. Si utilizas el Asistente de IA, tu descripción
+                        se procesa a través de los servicios de Google Gemini.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <h2
+                        class="text-xs font-bold text-[var(--text-primary)] uppercase tracking-[0.2em] border-l-2 border-red-600 pl-4"
+                    >
+                        2. Uso de Inteligencia Artificial
+                    </h2>
+                    <p>
+                        Cuando decides generar un concepto visual con Gemini,
+                        proporcionas tu propia llave de API. Nosotros **no
+                        almacenamos ni registramos** esta llave. El proceso es
+                        directo entre tu navegador y los servidores de Google
+                        para garantizar tu soberanía digital.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <h2
+                        class="text-xs font-bold text-[var(--text-primary)] uppercase tracking-[0.2em] border-l-2 border-red-600 pl-4"
+                    >
+                        3. Comunicación vía WhatsApp
+                    </h2>
+                    <p>
+                        Al finalizar el proceso del asistente, la información se
+                        compila en un mensaje que tú envías manualmente por
+                        WhatsApp. No almacenamos estos datos en bases de datos
+                        externas sin tu consentimiento previo durante la cita
+                        física.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <h2
+                        class="text-xs font-bold text-[var(--text-primary)] uppercase tracking-[0.2em] border-l-2 border-red-600 pl-4"
+                    >
+                        4. Seguridad
+                    </h2>
+                    <p>
+                        Implementamos medidas de encriptación estándar para
+                        proteger la integridad de la navegación en este sitio.
+                        Como PWA, el acceso está optimizado para ser seguro y
+                        privado.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="pt-12 border-t border-[var(--border-color)]">
+                <a
+                    href="/"
+                    class="text-[10px] tracking-[0.3em] font-bold text-red-600 hover:text-[var(--text-primary)] transition-colors uppercase"
+                >
+                    ← Volver al Archivo
+                </a>
+            </footer>
+        </div>
+    </main>
+</Layout>

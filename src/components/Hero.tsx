@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, type FC } from 'react';
 import { HERO, COMPANY, MEDIA } from '../constants';
 import DustySpotlight from './DustySpotlight';
 
@@ -6,7 +6,7 @@ interface HeroProps {
   theme: 'dark' | 'light';
 }
 
-const Hero: React.FC<HeroProps> = ({ theme }) => {
+const Hero: FC<HeroProps> = ({ theme }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const isLight = theme === 'light';
 
@@ -130,6 +130,7 @@ const Hero: React.FC<HeroProps> = ({ theme }) => {
               loop
               muted
               playsInline
+              preload="metadata"
               className="w-full h-full object-cover"
             >
               <source src={MEDIA.videos.hero_loop} type="video/mp4" />

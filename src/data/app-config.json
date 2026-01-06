@@ -30,6 +30,10 @@
                 "id": "top"
             },
             {
+                "label": "Galería",
+                "id": "trabajos"
+            },
+            {
                 "label": "Estilos",
                 "id": "estilos"
             },
@@ -41,11 +45,11 @@
         "legalLinks": [
             {
                 "label": "Privacidad",
-                "url": "#"
+                "url": "/privacidad"
             },
             {
                 "label": "Términos",
-                "url": "#"
+                "url": "/terminos"
             }
         ]
     },
@@ -136,15 +140,7 @@
                     "url": "/assets/ledzeppelin.mp3"
                 },
                 {
-                    "title": "Dark Ambient 1",
-                    "url": "/assets/ariana.mp3"
-                },
-                {
-                    "title": "La Maquina",
-                    "url": "/assets/maquina.mp3"
-                },
-                {
-                    "title": "One Love",
+                    "title": "Metallica",
                     "url": "/assets/one.mp3"
                 }
             ]
@@ -156,47 +152,47 @@
             {
                 "url": "/assets/images/GeometricBlackwork/9.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Sombras"
+                "alt": "Geometric"
             },
             {
                 "url": "/assets/images/GeometricBlackwork/10.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Atmósfera"
+                "alt": "Geometric"
             },
             {
                 "url": "/assets/images/BlackAndGray/14.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Proceso"
+                "alt": "Realistic"
             },
             {
                 "url": "/assets/images/BlackAndGray/7.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Pigmento"
+                "alt": "Realistic"
             },
             {
                 "url": "/assets/images/BlackAndGray/15.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Manga Completa"
+                "alt": "Realistic"
             },
             {
                 "url": "/assets/images/Allstattoo/10.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Detalle Mano"
+                "alt": "Other"
             },
             {
                 "url": "/assets/images/Allstattoo/12.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Boceto"
+                "alt": "Other"
             },
             {
                 "url": "/assets/images/BlackAndGray/6.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Agujas"
+                "alt": "Realistic"
             },
             {
                 "url": "/assets/images/Pet/11.jpg",
                 "aspect": "aspect-[3/4]",
-                "alt": "Flash Art"
+                "alt": "Pet"
             }
         ]
     }

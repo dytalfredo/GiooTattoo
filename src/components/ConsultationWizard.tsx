@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { generateTattooDesign } from '../services/geminiService';
 import { TATTOO_STYLES } from '../constants';
 import GeminiHelp from './GeminiHelp';
