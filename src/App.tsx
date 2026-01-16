@@ -328,11 +328,46 @@ const App: FC = () => {
           </div>
 
           {/* Bottom Bar */}
-          <div className="pt-8 border-t border-[var(--border-color)] flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[9px] text-[var(--text-secondary)] tracking-[0.2em] uppercase">
-              &copy; {COMPANY.copyright}
-            </p>
-            <div className="flex gap-8">
+          <div className="pt-8 border-t border-[var(--border-color)] flex flex-col xl:flex-row justify-between items-center gap-6 text-center xl:text-left">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              <p className="text-[9px] text-[var(--text-secondary)] tracking-[0.2em] uppercase">
+                &copy; {COMPANY.copyright}
+              </p>
+
+              {/* Designed By Section */}
+              <div className="flex items-center gap-2 text-[9px] text-[var(--text-secondary)] tracking-[0.2em] uppercase group">
+                <span className="opacity-70">Página Diseñada con</span>
+
+                {/* Guitar Icon */}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 hover:scale-125 transition-transform duration-300">
+                  <path d="m8.5 15.5 3-3" />
+                  <path d="m11.5 12.5 3-3" />
+                  <path d="M7 21 21 7" />
+                  <path d="M2.5 16.5c-1 1-1 3.5.5 5 1.5 1.5 4 .5 5-.5L21 7.5a2.5 2.5 0 0 0 0-5L17 6.5l-3 3-3 3-3 3-3 3z" />
+                  <path d="M6 14.5a2.5 2.5 0 0 0 2.5 2.5" />
+                  <path d="M19.5 9c-1.5-1.5-1.5-4 .5-5" />
+                </svg>
+
+                <span className="text-[8px]">&</span>
+
+                {/* Blood Drop Icon */}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="text-red-600 hover:scale-125 hover:drop-shadow-[0_0_8px_rgba(220,38,38,0.8)] transition-all duration-300">
+                  <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-7-1.9-2.9-4-8-4-8S8 11.2 8 15c0 3.1 1.9 5 3 7z" />
+                </svg>
+
+                <span className="opacity-70">por</span>
+                <a
+                  href="https://alfredomendoza.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold hover:text-red-600 hover:underline hover:underline-offset-4 transition-all"
+                >
+                  Alfredo Mendoza
+                </a>
+              </div>
+            </div>
+
+            <div className="flex gap-6 md:gap-8 flex-wrap justify-center">
               {NAVIGATION.legalLinks.map((link, idx) => (
                 <a key={idx} href={link.url} className="text-[9px] text-[var(--text-secondary)] tracking-[0.1em] hover:text-[var(--text-primary)] uppercase transition-colors">{link.label}</a>
               ))}
